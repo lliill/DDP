@@ -1,6 +1,6 @@
 #Newton Notations in the Convex Optimization of S.Boyd
-# Trust region notation from Numerical Optimization of J.Nocedal
 import numpy as np
+# import matplotlib.pyplot as plt
 import math
 from functools import partial
 def log(x):
@@ -44,7 +44,7 @@ def newton_method(
         t = line_search(f, x, newton_step, Grad_f_x, a, b)
         x = x + t*newton_step
 
-def inegality_constraints(
+def barrier_inegality(
         f_s: "list of convex function to be minimized and convex inegality constraints",
         x:  "strictly feasible starting point",
         e:  "tolerance, >0",
@@ -59,13 +59,7 @@ def inegality_constraints(
     grad_f0, grad_constraints = grad_f_s[0], grad_f_s[1:]
     hess_f0, hess_constraints = hess_f_s[0], hess_f_s[1:]
 
-    # _ = -constraints[0](x)
-
-    def phi(x): 
-        # print(x)
-        # for f_i in constraints:
-        #     print(f_i(x))
-        
+    def phi(x):       
         return -sum(log(-f_i(x)) for f_i in constraints)
     def grad_phi(x):
         return sum(-1/(constraints[i](x)) * grad_constraints[i](x) for i in range(m))
@@ -84,6 +78,8 @@ def inegality_constraints(
             l.append(part1 + part2)
         return sum(l)
     
+    # f0_values = [f0(x)]
+
     while True:
         def f(t, x): return t * f0(x) + phi(x)
         def grad_f(t, x): return t* grad_f0(x) + grad_phi(x)
@@ -96,52 +92,15 @@ def inegality_constraints(
         #                          x, e,
         #                          lambda x: t* grad_f0(x) + grad_phi(x),
         #                          lambda x: t* hess_f0(x) + hess_phi(x))
+
         x = x_star_t
+        # f0_values.append(f0(x))
         if m/t < e:
+            # plt.plot(f0_values)
+            # plt.show()
+            # print(f0_values[-1], "f(x)*")
+            # print(x, 'x*')
             return x
         t = nu * t
 
-def solve_TR_subproblem(f: "f(x_k)",
-                        g: "Grad f(x_k)",
-                        B: "B_k symmetic and uniformly bounded, Aprox Hess of f(x_k)",
-                        Delta: "Delta_k > 0, Trust Region radius") -> "p_k":
-    """Solve min_p m(p) = f_k + g_k^T p + 1/2 p^T B_k p
-                s.t. ||p|| <= Delta_k.
-        the type of g needs to support @ operation"""
 
-    def difficult_case():
-        n = np.size(g)
-        p0 = np.zeros(n)
-            
-        def m(p): return f + g @ p + 1/2 * p @ B @ p
-
-        def grad_m(p): return g + B @ p
-
-        def hess_m(p): return B
-
-        def c(p): 
-            """Constraint function of trust region."""
-            return p @ p - Delta**2
-
-        def grad_c(p): return 2 * p
-
-        def hess_c(p): return 2 * np.eye(n)
-
-        return inegality_constraints([m, c], p0, 1e-6, [grad_m, grad_c], [hess_m, hess_c])
-
-    
-        
-    try:
-        B_inv = np.linalg.inv(B) #if B is positive definite and symetric
-        sol = B_inv @ g
-        if np.linalg.norm(sol) <= Delta:
-            return sol
-        else:
-            return difficult_case()
-
-    except np.linalg.LinAlgError:
-
-        return difficult_case()
-
-        
-        
