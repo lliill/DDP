@@ -1,0 +1,35 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Definitions of the problem}{3}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Mathematical formulations}{3}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Goal 1: Controllability}{3}{section*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Goal 2: Optimal Control}{3}{section*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}Transformation of the problem}{4}{subsection.1.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.2}Discretization of a continuous problem}{4}{subsection.1.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Dynamic Programming}{4}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Differential Dynamic Programming}{6}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Decomposition to sub-problems}{6}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Goal in the general form}{6}{section*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Goals in the DDP form}{6}{section*.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Backward and Forward pass}{7}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Forward pass}{7}{subsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Backward pass}{8}{subsection.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Algorithms}{8}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.1}Line search methods}{9}{subsection.2.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.2}Regularization methods}{9}{subsection.2.3.2}
