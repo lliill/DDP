@@ -9,6 +9,7 @@
 \usepackage{mathrsfs}
 %\usepackage{multicol}
 \usepackage{hyperref}
+%\usepackage{cite}
 
 \newtheorem{theo}{Theorem}[section]
 \newtheorem{coro}{Corollary}[theo]
@@ -24,14 +25,10 @@
 
 \author{Mengda Li }
 
-\usepackage[
-backend=biber,
-style=alphabetic,
-sorting=ynt
-]{biblatex}
+%\usepackage{biblatex}
 
-\addbibresource{report.bib}
-
+%\addbibresource{report.bib}
+%\bibliography{report}
 \begin{document}
 
 \maketitle
@@ -264,7 +261,7 @@ The raison why we first go from future to present is the convenience of computin
 We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear. However, there are some proofs show that by doing backward pass and forward pass iteratively, it will converge to a local minimum of $J$.
 \end{remark}
 \section{Backward and Forward pass}
-
+If $Q, V \in \mathscr{C}^2 $, then we can proceed the following DDP steps:
 \subsection{Forward pass}
 %We define 
 %\begin{equation}
@@ -309,7 +306,7 @@ What we need is then to find the optimal $\delta_u^*$ minimizing $Q_i(x_i + \del
 \end{equation}
 By abuse of notation, we note
 \begin{equation}
-\delta_u^* = - Q_{uu}^{-1} (Q_u + Q_{ux} \delta_x)
+\bullet \quad \delta_u^* = - Q_{uu}^{-1} (Q_u + Q_{ux} \delta_x)
 \end{equation}
 with the open-loop term:
 \begin{equation}
@@ -326,38 +323,56 @@ To compute the best variation of control variable $\delta_u^*$, we need to know 
 where the unknown is underlined. However, what we need is only
 \footnotetext{In the community, we use the prime notation to mean  the "next"}
 \begin{equation}
-Q_u = L_u + \underline{V'_x}   \ F_u \quad \footnotemark
+\bullet \quad Q_u = L_u + \underline{V'_x}   \ F_u \quad \footnotemark
 \end{equation}
-And the hessian which can be ignored in iLQR but not in DDP \footnote{\cite{TassaIROS12}}
+And the hessian which can be ignored in iLQR but not in DDP \footnote{\cite{TassaIROS12}} 
+%\autocite{TassaIROS12}
 \begin{multline}
      D^2 Q_i (x_i ,u_i) (e_k) (e_l) = D^2 L (x_i ,u_i) (e_k) (e_l) + \\
         \underline{DV_{i+1}}(x_{i+1})\big(D^2 F (x_i ,u_i) (e_k) (e_l)\big) +\\
         \underline{D^2 V_{i+1}}(x_{i+1}) \big( DF(x_i ,u_i)(e_k) \big) \big( DF(x_i ,u_i)(e_l) \big)
 \end{multline}
 \footnote{To prove this, use the theorem in the reminder of Differential calculus}
-where $e_k, e_l$ are vectors of canonical basis. We need use them as canonical variations to compute the Hessian matrix.
+where $e_k, e_l$ are vectors of canonical basis. We need use them as canonical variations to compute the Hessian matrix. In a less rigorous form:
+\begin{equation}
+\bullet \quad Q_{uu} = L_{uu} + \underline{V'_x} \cdot F_{uu} + F_u^T \underline{V'_{xx}} F_u
+\end{equation}
+\begin{equation}
+\bullet \quad Q_{ux} = L_{ux} + \underline{V'_x} \cdot F_{ux} + F_u^T \underline{V'_{xx}} F_x
+\end{equation}
+where the $\cdot$ denote the tensor dot product.
+
+
+
 
 As the underline information is from the future, we need the backward pass.
 
 \subsection{Backward pass}
-In each backward pass, we compute the first and second order differentials ($\approx$gradient and hessian) of each $V_i$ and we use this information to find the quadratically approximate minimum of each $V_i$ (thus $J$).
+In each backward pass, we compute the first and second order differentials ($\approx$gradient and hessian) of each $V_i$ and we use this information to find the quadratically approximate minimum of each $V_i$ (thus $J$).% We could suppose that all differentials of order superior than 2 are nil.
 
-For all \underline{fixed $x_i, u_i$}
+For all \underline{fixed $u_i$}
 \begin{equation}
 \label{V approx}
 V_i(x_i) =\min_u Q_i(x_i,u) \approx Q_i(x_i, u_i) - \frac{1}{2} D_u Q_i (x_i, u_i) (D_{uu}^2 Q_i (x_i, u_i))^{-1} \nabla_u Q_i (x_i, u_i)
 \end{equation}
 %Note that $D_{uu}^2$ is only that the restriction of matrix $D^2$ on the partial derivatives of $\partial u_i \partial u_j$. Then
 \begin{equation}
-    DV_i(x_i)  = D_x Q_i(x_i,u_i) + D_u Q_i (x_i, u_i) \circ [D_{uu}^2 Q_i (x_i, u_i)]^{-1} \circ D_{ux}^2 Q_i (x_i,u_i)
+    DV_i(x_i)  = D_x Q_i(x_i,u_i) - D_u Q_i (x_i, u_i) \circ [D_{uu}^2 Q_i (x_i, u_i)]^{-1} \circ D_{ux}^2 Q_i (x_i,u_i)
 \end{equation}
+% if Q_uu is constant than there will be a minus, but my previous calculus give a + if I consider Q_uu not constant and do some hard diff calculus with inversion of matrix
 \begin{equation}
-    D^2 V_i(x_i) = D_{xx}^2 Q_i(x_i, u_i) + D_{xu}^2 Q_i (x_i,u_i) \circ [D_{uu}^2 Q_i (x_i, u_i)]^{-1} \circ D_{ux}^2 Q_i (x_i,u_i)
+    D^2 V_i(x_i) = D_{xx}^2 Q_i(x_i, u_i) - D_{xu}^2 Q_i (x_i,u_i) \circ [D_{uu}^2 Q_i (x_i, u_i)]^{-1} \circ D_{ux}^2 Q_i (x_i,u_i)
 \end{equation}
 % I am not sure if D2V* is correct... to verify!
-
+which are
+\begin{equation}
+\bullet \quad V_x = Q_x + Q_u Q_{uu}^{-1} Q_{ux}
+\end{equation}
+\begin{equation}
+\bullet \quad V_{xx} = Q_{xx} + Q_{xu} Q_{uu}^{-1} Q_{ux}
+\end{equation}
 \begin{remark}
-As we do a quadratic approximation, the higher order ($>2$) differentials are supposed to be null.
+As we do a quadratic approximation, the higher order ($>2$) differentials are supposed to be null. So $Q_{uu}^{-1}$ is constant.
 \end{remark}
 
 \section{Algorithms}
@@ -463,6 +478,7 @@ D(f\cdot g)(x)(h) = f(x) \circ Dg(x)(h) + Df(x)(h) \circ g(x)
 Books remain silent about this theorem. Either not mentioned or in a false expression.
 \end{remark}
 
-\printbibliography
+%\bibliography{report}
+%\printbibliography
 
 \end{document}

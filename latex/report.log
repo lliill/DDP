@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.30)  13 MAY 2019 18:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.30)  15 MAY 2019 13:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -596,238 +596,23 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \c@defi=\count119
 \c@go=\count120
 
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
-Package: biblatex 2016/03/03 v3.3 programmable bibliographies (PK/JW/AB)
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex_.sty
-Package: biblatex_ 2016/03/03 v3.3 programmable bibliographies (biber) (PK/JW/A
-B)
-
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count121
-)
-(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
-Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count122
-
-(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def
-File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
-))
-(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-\c@tabx@nest=\count123
-\c@listtotal=\count124
-\c@listcount=\count125
-\c@liststart=\count126
-\c@liststop=\count127
-\c@citecount=\count128
-\c@citetotal=\count129
-\c@multicitecount=\count130
-\c@multicitetotal=\count131
-\c@instcount=\count132
-\c@maxnames=\count133
-\c@minnames=\count134
-\c@maxitems=\count135
-\c@minitems=\count136
-\c@citecounter=\count137
-\c@savedcitecounter=\count138
-\c@uniquelist=\count139
-\c@uniquename=\count140
-\c@refsection=\count141
-\c@refsegment=\count142
-\c@maxextratitle=\count143
-\c@maxextratitleyear=\count144
-\c@maxextrayear=\count145
-\c@maxextraalpha=\count146
-\c@abbrvpenalty=\count147
-\c@highnamepenalty=\count148
-\c@lownamepenalty=\count149
-\c@maxparens=\count150
-\c@parenlevel=\count151
-\blx@tempcnta=\count152
-\blx@tempcntb=\count153
-\blx@tempcntc=\count154
-\blx@maxsection=\count155
-\blx@maxsegment@0=\count156
-\blx@notetype=\count157
-\blx@parenlevel@text=\count158
-\blx@parenlevel@foot=\count159
-\blx@sectionciteorder@0=\count160
-\labelnumberwidth=\skip54
-\labelalphawidth=\skip55
-\biblabelsep=\skip56
-\bibitemsep=\skip57
-\bibnamesep=\skip58
-\bibinitsep=\skip59
-\bibparsep=\skip60
-\bibhang=\skip61
-\blx@bcfin=\read1
-\blx@bcfout=\write3
-\c@mincomprange=\count161
-\c@maxcomprange=\count162
-\c@mincompwidth=\count163
-Package biblatex Info: Trying to load biblatex default data model...
-Package biblatex Info: ... file 'blx-dm.def' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def)
-Package biblatex Info: Trying to load biblatex style data model...
-Package biblatex Info: ... file 'alphabetic.dbx' not found.
-Package biblatex Info: Trying to load biblatex custom data model...
-Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count164
-\c@savedafterword=\count165
-\c@annotator=\count166
-\c@savedannotator=\count167
-\c@author=\count168
-\c@savedauthor=\count169
-\c@bookauthor=\count170
-\c@savedbookauthor=\count171
-\c@commentator=\count172
-\c@savedcommentator=\count173
-\c@editor=\count174
-\c@savededitor=\count175
-\c@editora=\count176
-\c@savededitora=\count177
-\c@editorb=\count178
-\c@savededitorb=\count179
-\c@editorc=\count180
-\c@savededitorc=\count181
-\c@foreword=\count182
-\c@savedforeword=\count183
-\c@holder=\count184
-\c@savedholder=\count185
-\c@introduction=\count186
-\c@savedintroduction=\count187
-\c@namea=\count188
-\c@savednamea=\count189
-\c@nameb=\count190
-\c@savednameb=\count191
-\c@namec=\count192
-\c@savednamec=\count193
-\c@translator=\count194
-\c@savedtranslator=\count195
-\c@shortauthor=\count196
-\c@savedshortauthor=\count197
-\c@shorteditor=\count198
-\c@savedshorteditor=\count199
-\c@labelname=\count266
-\c@savedlabelname=\count267
-\c@institution=\count268
-\c@savedinstitution=\count269
-\c@lista=\count270
-\c@savedlista=\count271
-\c@listb=\count272
-\c@savedlistb=\count273
-\c@listc=\count274
-\c@savedlistc=\count275
-\c@listd=\count276
-\c@savedlistd=\count277
-\c@liste=\count278
-\c@savedliste=\count279
-\c@listf=\count280
-\c@savedlistf=\count281
-\c@location=\count282
-\c@savedlocation=\count283
-\c@organization=\count284
-\c@savedorganization=\count285
-\c@origlocation=\count286
-\c@savedoriglocation=\count287
-\c@origpublisher=\count288
-\c@savedorigpublisher=\count289
-\c@publisher=\count290
-\c@savedpublisher=\count291
-\c@language=\count292
-\c@savedlanguage=\count293
-\c@pageref=\count294
-\c@savedpageref=\count295
-\shorthandwidth=\skip62
-\shortjournalwidth=\skip63
-\shortserieswidth=\skip64
-\shorttitlewidth=\skip65
-\shortauthorwidth=\skip66
-\shorteditorwidth=\skip67
-Package biblatex Info: Trying to load compatibility code...
-Package biblatex Info: ... file 'blx-compat.def' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
-File: blx-compat.def 2016/03/03 v3.3 biblatex compatibility (PK/JW/AB)
-)
-Package biblatex Info: Trying to load generic definitions...
-Package biblatex Info: ... file 'biblatex_.def' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex_.def
-File: biblatex_.def 
-\c@textcitecount=\count296
-\c@textcitetotal=\count297
-\c@textcitemaxnames=\count298
-\c@biburlnumpenalty=\count299
-\c@biburlucpenalty=\count300
-\c@biburllcpenalty=\count301
-\c@smartand=\count302
-)
-Package biblatex Info: Trying to load bibliography style 'alphabetic'...
-Package biblatex Info: ... file 'alphabetic.bbx' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/alphabetic.bbx
-File: alphabetic.bbx 2016/03/03 v3.3 biblatex bibliography style (PK/JW/AB)
-Package biblatex Info: Trying to load bibliography style 'standard'...
-Package biblatex Info: ... file 'standard.bbx' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
-File: standard.bbx 2016/03/03 v3.3 biblatex bibliography style (PK/JW/AB)
-\c@bbx:relatedcount=\count303
-\c@bbx:relatedtotal=\count304
-))
-Package biblatex Info: Trying to load citation style 'alphabetic'...
-Package biblatex Info: ... file 'alphabetic.cbx' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/alphabetic.cbx
-File: alphabetic.cbx 2016/03/03 v3.3 biblatex citation style (PK/JW/AB)
-Package biblatex Info: Redefining '\cite'.
-Package biblatex Info: Redefining '\parencite'.
-Package biblatex Info: Redefining '\footcite'.
-Package biblatex Info: Redefining '\footcitetext'.
-Package biblatex Info: Redefining '\smartcite'.
-Package biblatex Info: Redefining '\textcite'.
-Package biblatex Info: Redefining '\textcites'.
-Package biblatex Info: Redefining '\cites'.
-Package biblatex Info: Redefining '\parencites'.
-Package biblatex Info: Redefining '\smartcites'.
-)
-Package biblatex Info: Trying to load configuration file...
-Package biblatex Info: ... file 'biblatex.cfg' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
-File: biblatex.cfg 
-)))
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2016/03/03 v3.3 biblatex localization (PK/JW/AB)
-)
-\@quotelevel=\count305
-\@quotereset=\count306
-
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -879,20 +664,20 @@ Package graphics Info: Driver file: pdftex.def on input line 95.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-\Gread@gobject=\count307
+\Gread@gobject=\count121
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count308
+\scratchcounter=\count122
 \scratchdimen=\dimen133
 \scratchbox=\box28
-\nofMPsegments=\count309
-\nofMParguments=\count310
+\nofMPsegments=\count123
+\nofMParguments=\count124
 \everyMPshowfont=\toks29
-\MPscratchCnt=\count311
+\MPscratchCnt=\count125
 \MPscratchDim=\dimen134
-\MPnumerator=\count312
-\makeMPintoPDFobject=\count313
+\MPnumerator=\count126
+\makeMPintoPDFobject=\count127
 \everyMPtoPDFconversion=\toks30
 ))) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -913,7 +698,7 @@ e
 \Gin@req@width=\dimen136
 )
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 35.
+Package hyperref Info: Link coloring OFF on input line 32.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -921,51 +706,41 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count314
+\c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 35.
-LaTeX Info: Redefining \pageref on input line 35.
-LaTeX Info: Redefining \nameref on input line 35.
+LaTeX Info: Redefining \ref on input line 32.
+LaTeX Info: Redefining \pageref on input line 32.
+LaTeX Info: Redefining \nameref on input line 32.
 
 (./report.out) (./report.out)
-\@outlinefile=\write4
-\openout4 = `report.out'.
+\@outlinefile=\write3
+\openout3 = `report.out'.
 
-Package biblatex Info: Input encoding 'utf8' detected.
-Package biblatex Info: Automatic encoding selection.
-(biblatex)             Assuming data encoding 'utf8'.
-\openout3 = `report.bcf'.
+LaTeX Font Info:    Try loading font information for U+msa on input line 35.
 
-Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'report.bbl' not found.
-
-No file report.bbl.
-Package biblatex Info: Reference section=0 on input line 35.
-Package biblatex Info: Reference segment=0 on input line 35.
-LaTeX Font Info:    Try loading font information for U+msa on input line 38.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 38.
+LaTeX Font Info:    Try loading font information for U+msb on input line 35.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 38.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 35.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./report.toc)
-\tf@toc=\write5
-\openout5 = `report.toc'.
+\tf@toc=\write4
+\openout4 = `report.toc'.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.41 \chapter
+l.38 \chapter
              *{Introduction} [1
 
 ] [2
@@ -975,15 +750,15 @@ Chapter 1.
 [3
 
 ] [4]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 200.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 197.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 200.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 197.
 
-Overfull \hbox (5.58398pt too wide) in paragraph at lines 200--204
+Overfull \hbox (5.58398pt too wide) in paragraph at lines 197--201
 \OMS/cmsy/m/n/10 ^^O $\OML/cmm/m/it/10 Q[]$ \OT1/cmr/m/n/10 is the ``raw form''
  of $\OML/cmm/m/it/10 V[]$ \OT1/cmr/m/n/10 be-fore min-i-miz-ing over $\OML/cmm
 /m/it/10 u[]$ \OT1/cmr/m/n/10 con-sid-er-ing that the fu-ture con-trols $\OML/c
@@ -996,16 +771,16 @@ Chapter 2.
 
 ]
 
-LaTeX Warning: Citation 'TassaIROS12' on page 7 undefined on input line 331.
+LaTeX Warning: Citation `TassaIROS12' on page 7 undefined on input line 328.
 
 [7pdfTeX warning (ext4): destination with the same identifier (name{Hfootnote.1
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.336 \end{multline}
+l.334 \end{multline}
                     ]
-Overfull \hbox (6.03987pt too wide) in paragraph at lines 367--368
+Overfull \hbox (6.03987pt too wide) in paragraph at lines 382--383
 \OML/cmm/m/it/10 DV[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 )$, w
 e have $\OML/cmm/m/it/10 DQ[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; u[]\OT1/cmr
 /m/n/10 )$. Then we can find $\OML/cmm/m/it/10 DV[]\OT1/cmr/m/n/10 (\OML/cmm/m/
@@ -1014,39 +789,28 @@ m/m/it/10 x[]; u[]\OT1/cmr/m/n/10 )$
  []
 
 [8] [9]
-
-LaTeX Warning: Empty bibliography on input line 466.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 468.
-[10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 468.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 484.
+ [10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 484.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 468.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 468.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 484.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 484.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: A71A8CB023A94F9807FA58A99F20F7CD;921.
 
 
 LaTeX Warning: There were undefined references.
 
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                report
-(biblatex)                and rerun LaTeX afterwards.
-
-Package logreq Info: Writing requests to 'report.run.xml'.
-\openout1 = `report.run.xml'.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 468.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 484.
  ) 
 Here is how much of TeX's memory you used:
- 12733 strings out of 493029
- 203257 string characters out of 6136234
- 638578 words of memory out of 5000000
- 16045 multiletter control sequences out of 15000+600000
+ 7246 strings out of 493029
+ 104323 string characters out of 6136234
+ 207396 words of memory out of 5000000
+ 10607 multiletter control sequences out of 15000+600000
  14359 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,23n,32p,912b,845s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,23n,31p,553b,429s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1069,10 +833,10 @@ onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/rsfs/rsfs10.pfb>
-Output written on report.pdf (11 pages, 242517 bytes).
+Output written on report.pdf (11 pages, 242224 bytes).
 PDF statistics:
- 274 PDF objects out of 1000 (max. 8388607)
- 238 compressed objects within 3 object streams
- 73 named destinations out of 1000 (max. 500000)
+ 278 PDF objects out of 1000 (max. 8388607)
+ 242 compressed objects within 3 object streams
+ 77 named destinations out of 1000 (max. 500000)
  105 words of extra memory for PDF output out of 10000 (max. 10000000)
 
