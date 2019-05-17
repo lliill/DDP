@@ -32,7 +32,7 @@ def solve_TR_subproblem(f: "f(x_k)",
 
         return barrier_inegality([m, c], p0, 1e-6, [grad_m, grad_c], [hess_m, hess_c])
     
-    try:
+    try: # cholesky or np solve
         B_inv = np.linalg.inv(B) #if B is positive definite and symetric
         sol = -B_inv @ g
         if np.linalg.norm(sol) <= Delta:
@@ -53,7 +53,7 @@ def trust_region(f, x_0 :np.array,
                 init_radius: float = 1,
                 ok_range: float = 0.2,
                 ) -> "x*":
-    """Compute the local minimum by Trust Region method with a plot. 
+    """Compute the local minimum by Trust Region method. 
 
     Arguments:
     f -- the function to be optimized
@@ -72,29 +72,29 @@ def trust_region(f, x_0 :np.array,
 
     x_k = x_0
 
-    predicted_reductions = []
-    actual_reductions = [] #
-    for k in range(iterations):
-        f_k = f(x_k)
+    for k in range(iterations):  
         g_k = g(x_k)
+        grad_norm = np.linalg.norm(g_k)
+        if grad_norm < 1e-10:
+            return x_k
+
+        f_k = f(x_k)
         B_k = B(x_k)
 
         p_k  = solve_TR_subproblem(f_k, g_k, B_k, Delta_k)
         actual_reduction = f_k - f(x_k + p_k)
         predicted_reduction = -(g_k @ p_k + 1/2 * p_k @ B_k @ p_k)
         ro_k =  actual_reduction / predicted_reduction
-
   
-        grad_norm = np.linalg.norm(g_k)
+        # grad_norm = np.linalg.norm(g_k)
 
-        if isclose(grad_norm, 0, rel_tol= 0.02):
-            return x_k
 
         if ro_k < 1/4:
             Delta_k = 1/4 * Delta_k
         else:
             if ro_k > 3/4 and isclose(np.linalg.norm(p_k), Delta_k, rel_tol=0.05):#np.linalg.norm(p_k) == Delta_k
                 Delta_k = min(2*Delta_k, max_radius)
+
         if ro_k > eta:
             x_k = x_k + p_k
            
@@ -140,7 +140,7 @@ def trust_region_plot(f, x_0 :np.array,
         f_k = f(x_k)
         g_k = g(x_k)
         grad_norm = np.linalg.norm(g_k)
-        if isclose(grad_norm, 0, rel_tol= 0.02):
+        if grad_norm < 1e-10:
             break
         B_k = B(x_k)
 
@@ -153,7 +153,7 @@ def trust_region_plot(f, x_0 :np.array,
         predicted_reductions.append(predicted_reduction)#
 
         f_values.append(f_k)
-        Grad_norms.append(np.linalg.norm(g_k))
+        Grad_norms.append(grad_norm)
         # grad.append(g_k)#
         p.append(p_k)
         ro.append(ro_k)
@@ -208,24 +208,23 @@ def trust_region_plot(f, x_0 :np.array,
     # plt.show()
 
 
-    fig2 = plt.figure(2)
-    ax1 = fig2.add_subplot(151)
-    ax2 = fig2.add_subplot(152)
-    ax3 = fig2.add_subplot(153)
-    ax4 = fig2.add_subplot(154)
-    ax5 = fig2.add_subplot(155)
+    fig = plt.figure()
+    ax1 = fig.add_subplot(221)
+    ax2 = fig.add_subplot(222)
+    ax3 = fig.add_subplot(223)
+    ax4 = fig.add_subplot(224)
 
-    ax1.title.set_text("predicted reductions")
-    ax1.plot(predicted_reductions)
-    ax2.title.set_text("actual reductions")
-    ax2.plot(actual_reductions)
-    ax3.title.set_text("f(x_k)")
-    ax3.plot(f_values)
-    ax3.set_ylabel("f(x_k)")
-    ax4.title.set_text("gradient norm")
-    ax4.plot(Grad_norms)
-    ax5.title.set_text("Trust Region Radius")
-    ax5.plot(Delta)
+    ax1.title.set_text("reductions")
+    ax1.plot(predicted_reductions, '-b', label = "predicted reductions")
+    ax1.plot(actual_reductions, '--r', label = "actual reductions")
+    ax1.legend()
+    ax2.title.set_text("function values")
+    ax2.plot(f_values)
+    #ax3.set_ylabel("f(x_k)")
+    ax3.title.set_text("gradient norms")
+    ax3.semilogy(Grad_norms)
+    ax4.title.set_text("Trust Region Radius")
+    ax4.plot(Delta)
 
     plt.show()
 

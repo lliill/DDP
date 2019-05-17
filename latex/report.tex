@@ -341,8 +341,7 @@ where $e_k, e_l$ are vectors of canonical basis. We need use them as canonical v
 \bullet \quad Q_{ux} = L_{ux} + \underline{V'_x} \cdot F_{ux} + F_u^T \underline{V'_{xx}} F_x
 \end{equation}
 where the $\cdot$ denote the tensor dot product.
-
-
+\footnote{It is not a real tensor dot product and $F_{uu}, F_{ux}$ are neither real tensors defined in Wikipedia.}
 
 
 As the underline information is from the future, we need the backward pass.
@@ -366,10 +365,10 @@ V_i(x_i) =\min_u Q_i(x_i,u) \approx Q_i(x_i, u_i) - \frac{1}{2} D_u Q_i (x_i, u_
 % I am not sure if D2V* is correct... to verify!
 which are
 \begin{equation}
-\bullet \quad V_x = Q_x + Q_u Q_{uu}^{-1} Q_{ux}
+\bullet \quad V_x = Q_x - Q_u Q_{uu}^{-1} Q_{ux}
 \end{equation}
 \begin{equation}
-\bullet \quad V_{xx} = Q_{xx} + Q_{xu} Q_{uu}^{-1} Q_{ux}
+\bullet \quad V_{xx} = Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux}
 \end{equation}
 \begin{remark}
 As we do a quadratic approximation, the higher order ($>2$) differentials are supposed to be null. So $Q_{uu}^{-1}$ is constant.
