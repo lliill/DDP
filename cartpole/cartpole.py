@@ -67,3 +67,4 @@ _L_T_x = _L_T.diff(X)
 
 def L_x(x, u):
     aux = lambdify((X, U), _L_x, "numpy")
+    #not completed
