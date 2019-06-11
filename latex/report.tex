@@ -18,6 +18,9 @@
 \newtheorem{go}{Goal}[section]
 \newtheorem*{remark}{Remark}
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
 \title{Finite-Horizon Optimal Control by Differential Dynamic Programming with Application to Robotics 	\\
 \medskip
 \large Internship report
@@ -200,7 +203,7 @@ $V_i$ is the optimal value of the cost in the sub-trajectory in the time interva
 $Q_i$ is the ``raw form'' of $V_i$ before minimizing over $u_i$ considering that the future controls $u_{i+1}, .., u_{N-1}$ are always optimal. 
 
 \begin{remark}
-In practice, what we use in the DDP is the quadratic approximation of the function $Q$, and that is why we name it $Q$. 
+In practice, what we use in the DDP is the quadratic approximation of the function $Q$, and that is why we name it $Q$. If $f$ is linear and all cost functions are quadratic, then $Q$ and $V$ will all be quadratic and we can exactly find the $\min_{u_i} Q_i(x_i, u_i) $ for all $i$.
 \end{remark}
 
 \chapter{Differential Dynamic Programming}
@@ -258,11 +261,12 @@ We will first pre-compute what we need to find each ``minimum'' of $Q_i$ (their 
 The raison why we first go from future to present is the convenience of computing of differentials to find the minimum. However, we cannot find them immediately in the future: we need to wait the time goes by to compute the minimum from present one by one.
 
 \begin{remark}	
-We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear. However, there are some proofs show that by doing backward pass and forward pass iteratively, it will converge to a local minimum of $J$.
+	We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear in one iteration. However, this is a \emph{Sequential Quadratic Programming} and it will converge \footnote{there is some theoretical subtleties in the roll-out (DDP line search) phase. But there are theoretical convergence guarantees on classical line search. DDP line search strategies work in practice better and respect the equality constraint of dynamics}.
+%there are some proofs show that by doing backward pass and forward pass iteratively, it will converge to a local minimum of $J$.
 \end{remark}
-\section{Backward and Forward pass}
-If $Q, V \in \mathscr{C}^2 $, then we can proceed the following DDP steps:
-\subsection{Forward pass}
+\section{Interior loop (LQR)}
+If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
+\subsection{Backward pass: Optimal step, Q and its derivatives}
 %We define 
 %\begin{equation}
 %J(U) = \sum_{i = 0}^{N-1} L(x_i, u_i) + L_f(x_N)
@@ -288,22 +292,27 @@ If $Q, V \in \mathscr{C}^2 $, then we can proceed the following DDP steps:
 %
 %where $V$ is the minimal value of $Q$ by minimizing $u$. 
 
-
-
 For some fixed $x_i,u_i$
-\[
-V_i(x_i) = \min_u Q_i(x_i,u) = Q_i(x_i, u_i) + \min_{\delta u} [Q_i(x_i,u_i + \delta u) - Q_i(x_i,u_i)]  
-\]
+\begin{equation}
+\label{eq:V}
+V_i(x_i) = \min_u Q_i(x_i,u) = Q_i(x_i, u_i) + \min_{\delta u} [Q_i(x_i,u_i + \delta u) - Q_i(x_i,u_i)] 
+\end{equation}•
+ 
+
 We approximate $Q_i$ quadratically in practice, because \emph{doing global optimization of a function without special properties is hopeless}\footnote{by Francis Bach, 2019}, and approximating the function in higher orders Taylor series is computationally expensive: 
 %(To simplify the notation, we note $V$ instead of $Q_i$ and $V'$ instead of $V_{i+1}$)
 \begin{equation}
 \label{Q approx}
 Q_i(x_i + \delta_x, u_i + \delta_u )- Q_i(x_i,u_i)\approx DQ_i(x_i,u_i)(\delta_x, \delta_u) + \frac{1}{2}D^2 Q_i (x_i,u_i) (\delta_x, \delta_u)(\delta_x, \delta_u)
 \end{equation}
-What we need is then to find the optimal $\delta_u^*$ minimizing $Q_i(x_i + \delta_x, u_i + \delta_u )$. \textbf{Fixing $x_i,u_i, \delta_x$} and optimizing $\delta_u$, we have
+What we need is then to find the optimal $\delta_u^*$ minimizing $Q_i(x_i + \delta_x, u_i + \delta_u )$. \textbf{For all $x_i,u_i, \delta_x$} 
 \begin{equation}
-    \delta_u^* (i) = -(D^2_{uu}Q_i(x_i, u_i))^{-1} (\nabla_u Q_i(x_i,u_i) + D^2_{ux} Q_i(x_i,u_i) \delta_x)
+\begin{split}
+\delta_u^* (i) &:= \argmin_{\delta_u(i)}Q_i(x_i + \delta_x(i), u_i + \delta_u(i) ) \\
+\delta_u^* (i)&= -(D^2_{uu}Q_i(x_i, u_i))^{-1} (\nabla_u Q_i(x_i,u_i) + D^2_{ux} Q_i(x_i,u_i) \delta_x)
+\end{split}
 \end{equation}
+
 By abuse of notation, we note
 \begin{equation}
 \bullet \quad \delta_u^* = - Q_{uu}^{-1} (Q_u + Q_{ux} \delta_x)
@@ -316,6 +325,10 @@ and the feedback gain term:
 \begin{equation}
 K = - Q_{uu}^{-1} Q_{ux}
 \end{equation}
+So
+\begin{equation}
+ \delta_u^* = k + K \delta_x
+\end{equation}
 To compute the best variation of control variable $\delta_u^*$, we need to know the differential of $Q$:
 \begin{equation}
     D Q_i (x_i, u_i) = DL(x_i,u_i) + \underline{DV_{i+1}}(x_{i+1}) \circ DF(x,u)
@@ -325,7 +338,8 @@ where the unknown is underlined. However, what we need is only
 \begin{equation}
 \bullet \quad Q_u = L_u + \underline{V'_x}   \ F_u \quad \footnotemark
 \end{equation}
-And the hessian which can be ignored in iLQR but not in DDP \footnote{\cite{TassaIROS12}} 
+And the hessian which can be ignored in iLQR but not in DDP 
+\footnote{\cite{TassaIROS12}} 
 %\autocite{TassaIROS12}
 \begin{multline}
      D^2 Q_i (x_i ,u_i) (e_k) (e_l) = D^2 L (x_i ,u_i) (e_k) (e_l) + \\
@@ -346,14 +360,26 @@ where the $\cdot$ denote the tensor dot product.
 
 As the underline information is from the future, we need the backward pass.
 
-\subsection{Backward pass}
+\subsection{Forward pass: V and its derivatives}
 In each backward pass, we compute the first and second order differentials ($\approx$gradient and hessian) of each $V_i$ and we use this information to find the quadratically approximate minimum of each $V_i$ (thus $J$).% We could suppose that all differentials of order superior than 2 are nil.
 
-For all \underline{fixed $u_i$}
+For all \underline{fixed $u_i$}, by \ref{eq:V}, we have
 \begin{equation}
 \label{V approx}
 V_i(x_i) =\min_u Q_i(x_i,u) \approx Q_i(x_i, u_i) - \frac{1}{2} D_u Q_i (x_i, u_i) (D_{uu}^2 Q_i (x_i, u_i))^{-1} \nabla_u Q_i (x_i, u_i)
 \end{equation}
+In fact:
+\begin{equation}
+V_i(x_i) = \min_u Q_i(x_i,u) = Q_i(x_i,u_i + \delta_u^*(i)) 
+\end{equation}
+Notice that here $\delta_u^*(i) = k(i) = - Q_{uu}^{-1} Q_u$. So
+\begin{equation}
+\begin{split}
+V &\approx Q + Q_u^T \delta_u^* + \frac{1}{2} \delta_u^{*^T} Q_{uu} \delta_u^* \\
+& = Q - \frac{1}{2} Q_u^T Q_{uu}^{-1} Q_u 
+\end{split}
+\end{equation}
+Remark that $V = Q + \frac{1}{2} Q_u^T \delta_u^*$ which is like a gradient descent.
 %Note that $D_{uu}^2$ is only that the restriction of matrix $D^2$ on the partial derivatives of $\partial u_i \partial u_j$. Then
 \begin{equation}
     DV_i(x_i)  = D_x Q_i(x_i,u_i) - D_u Q_i (x_i, u_i) \circ [D_{uu}^2 Q_i (x_i, u_i)]^{-1} \circ D_{ux}^2 Q_i (x_i,u_i)
@@ -365,11 +391,15 @@ V_i(x_i) =\min_u Q_i(x_i,u) \approx Q_i(x_i, u_i) - \frac{1}{2} D_u Q_i (x_i, u_
 % I am not sure if D2V* is correct... to verify!
 which are
 \begin{equation}
-\bullet \quad V_x = Q_x - Q_u Q_{uu}^{-1} Q_{ux}
+\bullet \quad V_x = Q_x - Q_u Q_{uu}^{-1} Q_{ux} = Q_x + Q_u K 
 \end{equation}
 \begin{equation}
-\bullet \quad V_{xx} = Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux}
+\bullet \quad V_{xx} = Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux} = Q_{xx} + Q_{xu} K
 \end{equation}
+Also
+\begin{equation}
+ V_x = Q_x + k Q_{ux}
+\end{equation}•
 \begin{remark}
 As we do a quadratic approximation, the higher order ($>2$) differentials are supposed to be null. So $Q_{uu}^{-1}$ is constant.
 \end{remark}
