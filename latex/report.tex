@@ -10,6 +10,7 @@
 %\usepackage{multicol}
 \usepackage{hyperref}
 %\usepackage{cite}
+\usepackage{tcolorbox}
 
 \newtheorem{theo}{Theorem}[section]
 \newtheorem{coro}{Corollary}[theo]
@@ -20,6 +21,8 @@
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\twodots}{\mathinner {\ldotp \ldotp}}
 
 \title{Finite-Horizon Optimal Control by Differential Dynamic Programming with Application to Robotics 	\\
 \medskip
@@ -50,6 +53,7 @@ Their research is concerned with representational issues in visual object recogn
 
 GEPETTO is a robotics research team in the Laboratoire d'analyse et d'architecture des systèmes of Centre National de la Recherche Scientifique. They aim at analyzing and generating the motion of anthropomorphic systems. 
 
+The goal of my internship is to embed the augmented Lagrangian method to DDP to solve robotics optimal control problem with constraints. 
 \chapter{Definitions of the problem}
 We want to find a path from some point $x_0$ to some point $p$ which doesn't cost too much.
 
@@ -140,14 +144,14 @@ To be computable, we discretize the problem with an horizon $N \in \mathbb{N}^*$
 %\end{multicols}
 % For our example, let us simply set $g(x,u) = u$, i.e. we control directly the velocity. So $f(x,u) = x+ uh$
 \begin{equation}
-J(U) = \sum_{i = 0}^{N-1} L(x_i, u_i) + L_f(x_N) \approx \int_{[0,T[} l(x(t),u(t)) dt + l_f(x(T))
+J(U) = \sum_{i = 0}^{N-1} L(x_i, u_i) + L_T(x_N) \approx \int_{[0,T[} l(x(t),u(t)) dt + l_f(x(T))
 \end{equation}
 
-where $F(x_i, u_i) = x + h f(x_i, u_i), \ L(x_i, u_i) =h\,l(x_i, u_i), \ L_f = l_f $.
+where $F(x_i, u_i) = x + h f(x_i, u_i), \ L(x_i, u_i) =h\,l(x_i, u_i), \ L_T = l_f $.
 
 \medskip
 
-Our goal is then to minimize the $J$ over $\ell_N^\infty \subset \mathbb{R}^N$ - a finite-dimensional vector space where the control sequence $U$ = $(u_0, ..., u_{N-1})$ lies. Here, we transform a problem of infinite-dimensional control to a finite one.
+Our goal is then to minimize the $J$ in $\ell_N^\infty \subset \mathbb{R}^N$ - a finite-dimensional vector space where the control sequence $U$ = $(u_0, ..., u_{N-1})$ lies. Here, we transform a problem of infinite-dimensional control to a finite one.
 
 \section{Dynamic Programming}
 Notice that:
@@ -155,24 +159,24 @@ Notice that:
 \begin{split}
 \min_{U} J(U) &= \min_{u_0} \min_{u_1} ... \min_{u_{N-1}} J(U) \\
 					 &= \min_{u_0} L(x_0, u_0)  \\
-					 &+ (\min_{u_1} L(x_1, u_1) +... \min_{u_{N-1}}L(x_{N-1}, u_{N-1}) + L_f(F(x_{N-1}, u_{N-1})))
+					 &+ (\min_{u_1} L(x_1, u_1) +... \min_{u_{N-1}}L(x_{N-1}, u_{N-1}) + L_T(F(x_{N-1}, u_{N-1})))
 \end{split}
 \end{equation}
 
-Optimizing directly $J$ over the whole $U$ may be difficult. Following the principle of dynamic programming, we can optimize only over $u_i$ one by one if all future choices $u_{i+1}, .., u_{N-1}$ are optimal. 
+Optimizing directly $J$ with respect to the whole $U$ may be difficult. Following the principle of dynamic programming, we can optimize only with respect to $u_i$ one by one if all future choices $u_{i+1}, .., u_{N-1}$ are optimal. 
 
 \medskip
 We define the optimal value function $V$ and a function $Q$ such that $V(x) = \min_{u} Q(x, u)$.
 \begin{equation}
 \begin{split}
 V_0(x_0) &= \min_{u_0} \min_{u_1} ... \min_{u_{N-1}} J(U) \\
-			&= \min_{u_0} L(x_0, u_0)  + \underbrace{\min_{u_1} ... \min_{u_{N-1}} L(x_1, u_1)+... +L_f(x_N)}_{V_1(x_i)}
+			&= \min_{u_0} L(x_0, u_0)  + \underbrace{\min_{u_1} ... \min_{u_{N-1}} L(x_1, u_1)+... +L_T(x_N)}_{V_1(x_i)}
 \end{split}
 \end{equation}
 
 
 \begin{equation}
-Q_0(x_0, u_0) =L(x_0, u_0)  +\underbrace{\min_{u_1} ... \min_{u_{N-1}} L(x_1, u_1)+... +L_f(x_N)}_{V_1(x_i)}
+Q_0(x_0, u_0) =L(x_0, u_0)  +\underbrace{\min_{u_1} ... \min_{u_{N-1}} L(x_1, u_1)+... +L_T(x_N)}_{V_1(x_i)}
 \end{equation}
 
 
@@ -182,7 +186,7 @@ For all  $i\in \{0, 1, ..., N-1\}$ iteratively:
 \begin{equation}
 \begin{split}
 V_i(x_i,u_i) &= \min_{u_i}L(x_i,u_i) + V_{i+1}(x_{i+1}) \\
-		V_N(x_N) &= L_f(x_N)
+		V_N(x_N) &= L_T(x_N)
 \end{split}
 \end{equation}
 
@@ -200,7 +204,7 @@ V_i(x_i) = \min_{u_i} Q_i(x_i, u_i)
 \end{equation}•
 $V_i$ is the optimal value of the cost in the sub-trajectory in the time interval $[t_i, T]$ which depends only on the initial position of the sub-trajectory $x_i$.
 \\•
-$Q_i$ is the ``raw form'' of $V_i$ before minimizing over $u_i$ considering that the future controls $u_{i+1}, .., u_{N-1}$ are always optimal. 
+$Q_i$ is the ``raw form'' of $V_i$ before minimizing with respect to $u_i$ considering that the future controls $u_{i+1}, .., u_{N-1}$ are always optimal. 
 
 \begin{remark}
 In practice, what we use in the DDP is the quadratic approximation of the function $Q$, and that is why we name it $Q$. If $f$ is linear and all cost functions are quadratic, then $Q$ and $V$ will all be quadratic and we can exactly find the $\min_{u_i} Q_i(x_i, u_i) $ for all $i$.
@@ -216,7 +220,7 @@ Remind that our goal is to optimize $J \in \mathscr{C}^2 (\mathbb{R}^N \to \math
 \begin{split}
 J(u_0, ...u_{N-1}) = &L(x_0, u_0) + L(F(x_0, u_0), u_1) + \\
 	&L(F(F(x_0, u_0), u_1), u_2) + \\
-	&L_f[F(F(...F(F(F(x_0, u_0), u_1), u_2), ..., u_{N-2}) ,u_{N-1})]
+	&L_T[F(F(...F(F(F(x_0, u_0), u_1), u_2), ..., u_{N-2}) ,u_{N-1})]
 \end{split}
 \end{equation}
 
@@ -261,15 +265,25 @@ We will first pre-compute what we need to find each ``minimum'' of $Q_i$ (their 
 The raison why we first go from future to present is the convenience of computing of differentials to find the minimum. However, we cannot find them immediately in the future: we need to wait the time goes by to compute the minimum from present one by one.
 
 \begin{remark}	
-	We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear in one iteration. However, this is a \emph{Sequential Quadratic Programming} and it will converge \footnote{there is some theoretical subtleties in the roll-out (DDP line search) phase. But there are theoretical convergence guarantees on classical line search. DDP line search strategies work in practice better and respect the equality constraint of dynamics}.
+	We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear in one iteration. However, we will use the principle of \emph{Sequential Quadratic Programming} to make an approximation of the problem as an LQR to compute a descent direction and converge \footnote{there is some theoretical subtleties in the roll-out (DDP line search) phase. But there are theoretical convergence guarantees on classical line search. DDP line search strategies work in practice better and respect the equality constraint of dynamics} to a local minimum.
 %there are some proofs show that by doing backward pass and forward pass iteratively, it will converge to a local minimum of $J$.
 \end{remark}
-\section{Interior loop (LQR)}
-If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
+\section{Linear Quadratic Regulator (LQR)}
+If $L, L_T$ are quadratic and $F$ is linear, then the DDP is a \emph{Linear Quadratic Regulator}. All $Q$ and $V$ are quadratic, so all $\approx$ will be $=$ in this section and we can resolve the problem in one iteration.
+
+The LQR is only one method to solve a particular \emph{Quadratic Programming Problem} with \emph{Linear Equality Constraints} which exploits the structure of the problem to solve the problem efficiently:
+\begin{equation}
+\begin{aligned}
+&\underset{x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} L(x_i, u_i) + L_T(x_N) \\
+&\text{subject to}       &x(0)      &= x_0,  \\ %or \epsilon_{0} 
+&							      &x_{i+1}  &= F(x_i, u_i) \ \forall i \in [0 \twodots N-1]
+\end{aligned}
+\end{equation}
+In this section, we assume that the ongoing loss $L$ with respect to each state is the same. However, LQR works also in the case we have different quadratic $L_i$ with respect to $(x_i, u_i)$.
 \subsection{Backward pass: Optimal step, Q and its derivatives}
 %We define 
 %\begin{equation}
-%J(U) = \sum_{i = 0}^{N-1} L(x_i, u_i) + L_f(x_N)
+%J(U) = \sum_{i = 0}^{N-1} L(x_i, u_i) + L_T(x_N)
 %\end{equation}
 %
 %For all i $\in \{0, 1, ..., N-1\}$
@@ -285,7 +299,7 @@ If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{
 %\begin{equation}
 %\begin{split}
 %V_i(x_i) &= \min_{u_i} Q_i(x_i, u_i) \\
-%V_N(x_N) &= L_f(x_N)
+%V_N(x_N) &= L_T(x_N)
 %\end{split}
 %\end{equation}•
 %
@@ -296,9 +310,7 @@ For some fixed $x_i,u_i$
 \begin{equation}
 \label{eq:V}
 V_i(x_i) = \min_u Q_i(x_i,u) = Q_i(x_i, u_i) + \min_{\delta u} [Q_i(x_i,u_i + \delta u) - Q_i(x_i,u_i)] 
-\end{equation}•
- 
-
+\end{equation}
 We approximate $Q_i$ quadratically in practice, because \emph{doing global optimization of a function without special properties is hopeless}\footnote{by Francis Bach, 2019}, and approximating the function in higher orders Taylor series is computationally expensive: 
 %(To simplify the notation, we note $V$ instead of $Q_i$ and $V'$ instead of $V_{i+1}$)
 \begin{equation}
@@ -333,11 +345,12 @@ To compute the best variation of control variable $\delta_u^*$, we need to know 
 \begin{equation}
     D Q_i (x_i, u_i) = DL(x_i,u_i) + \underline{DV_{i+1}}(x_{i+1}) \circ DF(x,u)
 \end{equation}
-where the unknown is underlined. However, what we need is only
-\footnotetext{In the community, we use the prime notation to mean  the "next"}
-\begin{equation}
-\bullet \quad Q_u = L_u + \underline{V'_x}   \ F_u \quad \footnotemark
-\end{equation}
+where the unknown is underlined. 
+%However, what we need is only
+%\footnotetext{In the community, we use the prime notation to mean  the "next"}
+%\begin{equation}
+%\bullet \quad Q_u = L_u + \underline{V'_x}   \ F_u \quad \footnotemark
+%\end{equation}
 And the hessian which can be ignored in iLQR but not in DDP 
 \footnote{\cite{TassaIROS12}} 
 %\autocite{TassaIROS12}
@@ -348,14 +361,23 @@ And the hessian which can be ignored in iLQR but not in DDP
 \end{multline}
 \footnote{To prove this, use the theorem in the reminder of Differential calculus}
 where $e_k, e_l$ are vectors of canonical basis. We need use them as canonical variations to compute the Hessian matrix. In a less rigorous form:
+\footnotetext{In the community, we use the prime notation to mean  the "next"}
 \begin{equation}
-\bullet \quad Q_{uu} = L_{uu} + \underline{V'_x} \cdot F_{uu} + F_u^T \underline{V'_{xx}} F_u
+\label{QfromV}
+\begin{split}
+Q_u & = L_u + \underline{V'_x}   \ F_u \quad \footnotemark \\
+Q_{uu} &= L_{uu} + \underline{V'_x} \cdot F_{uu} + F_u^T \underline{V'_{xx}} F_u \\
+Q_{ux} &= L_{ux} + \underline{V'_x} \cdot F_{ux} + F_u^T \underline{V'_{xx}} F_x
+\end{split}
 \end{equation}
-\begin{equation}
-\bullet \quad Q_{ux} = L_{ux} + \underline{V'_x} \cdot F_{ux} + F_u^T \underline{V'_{xx}} F_x
-\end{equation}
+%\begin{equation}
+%\bullet \quad Q_{uu} = L_{uu} + \underline{V'_x} \cdot F_{uu} + F_u^T \underline{V'_{xx}} F_u
+%\end{equation}
+%\begin{equation}
+%\bullet \quad Q_{ux} = L_{ux} + \underline{V'_x} \cdot F_{ux} + F_u^T \underline{V'_{xx}} F_x
+%\end{equation}
 where the $\cdot$ denote the tensor dot product.
-\footnote{It is not a real tensor dot product and $F_{uu}, F_{ux}$ are neither real tensors defined in Wikipedia.}
+\footnote{It is not a real tensor dot product and $F_{uu}, F_{ux}$ are neither real tensors defined in Wikipedia. It is a 3-dimensional array, but we don't need this term because $F$ is supposed to be linear: $D^2F = 0$.}
 
 
 As the underline information is from the future, we need the backward pass.
@@ -363,7 +385,7 @@ As the underline information is from the future, we need the backward pass.
 \subsection{Forward pass: V and its derivatives}
 In each backward pass, we compute the first and second order differentials ($\approx$gradient and hessian) of each $V_i$ and we use this information to find the quadratically approximate minimum of each $V_i$ (thus $J$).% We could suppose that all differentials of order superior than 2 are nil.
 
-For all \underline{fixed $u_i$}, by \ref{eq:V}, we have
+If $i = N$, $V_N = L_T$. If $i \in [0\twodots N-1]$, for all \underline{fixed $u_i$}, by \ref{eq:V}, 
 \begin{equation}
 \label{V approx}
 V_i(x_i) =\min_u Q_i(x_i,u) \approx Q_i(x_i, u_i) - \frac{1}{2} D_u Q_i (x_i, u_i) (D_{uu}^2 Q_i (x_i, u_i))^{-1} \nabla_u Q_i (x_i, u_i)
@@ -391,20 +413,169 @@ Remark that $V = Q + \frac{1}{2} Q_u^T \delta_u^*$ which is like a gradient desc
 % I am not sure if D2V* is correct... to verify!
 which are
 \begin{equation}
-\bullet \quad V_x = Q_x - Q_u Q_{uu}^{-1} Q_{ux} = Q_x + Q_u K 
+\label{VfromQ}
+\begin{aligned}
+V_x &= Q_x - Q_u Q_{uu}^{-1} Q_{ux} &=& Q_x + Q_u K \\
+V_{xx} &= Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux} &=& Q_{xx} + Q_{xu} K
+\end{aligned}
 \end{equation}
-\begin{equation}
-\bullet \quad V_{xx} = Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux} = Q_{xx} + Q_{xu} K
-\end{equation}
+%\begin{equation}
+%\bullet \quad V_x = Q_x - Q_u Q_{uu}^{-1} Q_{ux} = Q_x + Q_u K 
+%\end{equation}
+%\begin{equation}
+%\bullet \quad V_{xx} = Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux} = Q_{xx} + Q_{xu} K
+%\end{equation}
 Also
 \begin{equation}
  V_x = Q_x + k Q_{ux}
-\end{equation}•
+\end{equation}
 \begin{remark}
 As we do a quadratic approximation, the higher order ($>2$) differentials are supposed to be null. So $Q_{uu}^{-1}$ is constant.
 \end{remark}
-
+\subsection{Roll-out}
+Once we have the $\delta_u^* = (\delta_u(i)^*)_{i \in [0 \twodots N-1]}$, we ``integrate'' $\delta_u^*$ to obtain $u^* := u + \delta_u^*$. Then we compute $x^*$ recursively by doing the equation in Euler Schema:
+\begin{equation}
+\begin{split}
+x^*_0      &= x_0,  \\ %or \epsilon_{0} 
+x_{i+1}^*     &= F(x_i^*, u_i^*) \ \forall i \in [0 \twodots N-1]
+\end{split}
+\end{equation}
+\section{Feasible and non-feasible trajectories}
+It can happen that there are some ``gaps'' between the next predicted state node $x_{i+1}^- = F(x_i, u_i)$ and the real $x_{i+1}$ such that $x_{i+1}  = F(x_i, u_i) + \epsilon_{i+1} \ \forall i \in [0 \twodots N-1]$. 
+The sequence of states will be
+\begin{align*}
+x_0 \xrightarrow{u_0} &x_1^- \\
+						&\downarrow \epsilon_1\\
+						&x_1\xrightarrow{u_1} x_2^- ...
+\end{align*}
+When all gaps $\epsilon$ are $0$, the trajectory is \emph{feasible}. 
+\subsection{Non-feasible start in LQR}
+\label{NFLQR}
+The chain of $Q, V$ will be changed: $\forall i \in [0 \twodots N-1]$
+\begin{equation}
+Q_i(x_i,u_i) = L_i(x_i,u_i) + V_{i+1}(\underbrace{f(x_i,u_i)}_{x_{i+1}^-})
+\end{equation}
+The schema in the interior loop will be
+\begin{align*}
+... \uparrow[V_{N-1}(x_{N-1})] \xleftarrow{\ref{VfromQ}} [Q_{N-1}(x_{N-1}, u_{N-1})] \xleftarrow{\ref{QfromV}} &[V_{N}(x_N^-)] \\
+					&\uparrow \ref{Vgap} \\
+					&[V_N(x_N)]
+\end{align*}
+$[...]$ represents the first and second order differentials of $...$, not the function value.
+For all $i \in [1 \twodots N]$,
+\begin{equation}
+%\label{Vgap}
+\begin{split}
+V^i(\overbrace{x_i^- + \epsilon_i}^{x_i}) &= V^i(x_i^-) + V^i_x(x_i^-) \cdot \epsilon_i
+%\overbrace{\epsilon_i}^{x_i - x_i^-} 
++\frac{1}{2} \epsilon_i^T V_{xx}^i \epsilon_i \\
+ 	&= \text{constant}(x_i^-) + V_x^i(x_i^-) \cdot x_i + \frac{1}{2}x_i^T V_{xx}^i x_i - x_i^T V_{xx}^i x_i^-
+\end{split}
+\end{equation}
+\begin{equation}
+\label{Vgap}
+\begin{split}
+V_x^i(x_i) &= V_x^i(x_i^-) + x_i^T V_{xx}^i - {x_i^-}^T V_{xx}^i \\
+					&= V_x^i(x_i^-) + \epsilon_i^T V_{xx}^i \\
+V_x^i(x_i^-) &= V_x^i(x_i) - \epsilon_i^T V_{xx}^i 
+\end{split}
+\end{equation}
+Once all $Q_u, Q_{uu}, Q_{ux}$ are computed, we have $\delta_u$ i.e. $k, K$. Then either we can compute a new feasible trajectory with the classical full-step LQR roll-out, or we can perform a partial step to have another non feasible trajectory with a smaller gaps\footnote{the gaps could be bigger in a non LQR model. For example, in the each sequential LQR phase of DDP, the gaps of trajectory could be bigger with respect to the real non linear dynamics constraint but reduced in the LQR approximation model.} \emph{with respect to} the LQR linear dynamics model.
 \section{Algorithms}
+In this section, we consider the DDP as a \emph{Non-Linear Optimization Problem} with respect to the state sequence $x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty$:
+\begin{equation}
+\begin{aligned}
+&\underset{x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} L(x_i, u_i) + L_T(x_N) \\
+&\text{subject to}       &x(0)      &= x_0,  \\ %or \epsilon_{0} 
+&							      &x_{i+1}  &= F(x_i, u_i)  
+%+\epsilon_{i+1} 
+\ \forall i \in [0 \twodots N-1]
+\end{aligned}
+\end{equation}
+
+\subsection{Sequential LQR Programming}
+Let $\bar{L}, \bar{L}_T$ be some quadratic approximation functions of $L, L_T$, and $\bar{F}$ be some linear approximation function of $F$. We repeat the following procedure until the criteria of convergence is satisfied.
+\subsubsection{Approximative LQR problem}
+\begin{equation}
+\begin{aligned}
+&\underset{x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} \bar{L}_i(x_i, u_i) + \bar{L}_T(x_N) \\
+&\text{subject to}       &x(0)      &= x_0,  \\ %or \epsilon_{0} 
+&							      &x_{i+1}  &= \bar{F}_i(x_i, u_i) 
+%+ \epsilon_{i+1} 
+\ \forall i \in [0 \twodots N-1]
+\end{aligned}
+\end{equation}
+Given any \emph{fixed} initial guess $x =(x_i)_{i \in [0 .. N]}, u = (u_i)_{i \in [0 .. N-1]}$, we define: for any $i \in [0 \twodots N-1]$,
+\[
+\bar{L}_i(x, u) := L(x_i, u_i) + DL(x_i, u_i)(x - x_i, u -u_i) + \frac{1}{2} D^2L(x_i, u_i)(x - x_i, u -u_i)(x - x_i, u -u_i)
+\]
+\begin{equation}
+\bar{L}_i(x_i + \delta_x^i, u_i + \delta_u^i) =  L(x_i, u_i) + \nabla L(x_i, u_i) (\delta_x^i, \delta_u^i) + \frac{1}{2} (\delta_x^i, \delta_u^i) \nabla^2 L(x_i, u_i)
+\begin{pmatrix}
+\delta_x^i \\
+\delta_u^i
+\end{pmatrix}
+\end{equation}
+I note $\delta_x(i), \delta_u(i)$ as $\delta_x^i, \delta_u^i$ to save space. For terminal loss:
+\[
+\bar{L}_T(x) := L_T(x_N) + DL_T(x_N)(x - x_N) + \frac{1}{2} D^2L_T(x_N)(x - x_N)(x - x_N)
+\]
+\begin{equation}
+\bar{L}_T(x_N + \delta_x^N) =  L_T(x_N) + \nabla L_T(x_N) \cdot \delta_x^N + \frac{1}{2} (\delta_x^N)^T \nabla^2 L_T(x_N) (\delta_x^N)
+\end{equation}
+Note that $\sum_{i=0}^{N-1}L(x_i, u_i) + L_T(x_N)$ is constant, so what we optimize is 
+\begin{tcolorbox}
+\[
+\sum_{i=0}^{N-1} [\nabla L(x_i, u_i) \cdot
+\begin{pmatrix}
+\delta_x^i \\
+\delta_u^i
+\end{pmatrix} + \frac{1}{2} 
+\begin{pmatrix}
+\delta_x^i \\
+\delta_u^i
+\end{pmatrix}^T
+ \nabla^2 L(x_i, u_i)
+\begin{pmatrix}
+\delta_x^i \\
+\delta_u^i
+\end{pmatrix}]
++ \nabla L_T(x_N) \cdot \delta_x^N + \frac{1}{2} (\delta_x^N)^T \nabla^2 L_T(x_N) (\delta_x^N)
+\]
+\end{tcolorbox}
+with respect to $\delta_x = (\delta_x^i)_{i \in [0 \twodots N]}$ and $\delta_u = (\delta_u^i)_{i \in [0 \twodots N-1]}$.
+
+\medskip
+The linearization of $F$ is defined as:
+\[
+\forall i \in [0 \twodots N-1] , \ \bar{F}_i(x, u) = F(x_i, u_i) + DF(x_i, u_i)(x - x_i, u -u_i)
+\]
+\begin{equation}
+\begin{split}
+\bar{F}_i(x_i + \delta_x^i, u_i + \delta_u^i) &=  \underbrace{F(x_i, u_i)}_{x_{i+1}} + \nabla F(x_i, u_i) (\delta_x^i, \delta_u^i) \\
+\bar{F}_i(\delta_x^i, \delta_u^i) &=  \nabla F(x_i, u_i) (\delta_x^i, \delta_u^i)
+\end{split}
+\end{equation}
+We expect $x_{i+1} + \delta_x^{i+1} = \bar{F}_i (x_i + \delta_x^i, u_i + \delta_u^i) + \epsilon_{i+1}$,
+so the equality constraint becomes 
+\begin{tcolorbox}
+\begin{equation}
+\begin{aligned}
+\delta_x^0 &= 0
+\\
+\delta_x^{i+1} &= \bar{F}_i(\delta_x^i, \delta_u^i) 
+%+ \epsilon_{i+1}
+ \ \forall i \in [0 \twodots N-1] 
+\end{aligned}
+\end{equation}
+\end{tcolorbox}
+If the trajectory $(x, u)$ does not respect the linear dynamics constraint, there are gaps to be computed:
+\begin{equation}
+\forall i \in [1 \twodots N], \ \epsilon_i := x_i - \bar{F}_{i-1}(x_{i-1}, u_{i-1})
+\end{equation}
+The gaps will not be changed if the optimization variable is $(delta_x, delta_u)$ instead of $(x,u)$. By \ref{NFLQR}, 
+\subsection{Interior loop (LQR)}
+If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
 In a linear or quadratic case (for $Q_i$), practical results show that by doing the procedure described below only for one time, the trajectory will converge. It is comprehensible because each $\delta_u^*(i)$ is indeed the best step of control variable and we indeed have a real minimum on each $Q_i(x_i, u_i)$. The approximative equality in \ref{Q approx} and \ref{V approx} is nor more approximative but exact. The theory guarantees that we have a global minimum of $J$ by doing only one time backward and forward pass.
 In a non linear and non quadratic case, things are much more complicate: we need iterate this procedure many times until we have a satisfied convergence i.e. the trajectory of control is becoming to satisfy the hypothesis of dynamic programming and the $Q_i$ is becoming ``locally quadratic''.
 

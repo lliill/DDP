@@ -5,9 +5,14 @@
 \BOOKMARK [1][-]{section.1.2}{Dynamic Programming}{chapter.1}% 5
 \BOOKMARK [0][-]{chapter.2}{Differential Dynamic Programming}{}% 6
 \BOOKMARK [1][-]{section.2.1}{Decomposition to sub-problems}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.2}{Interior loop \(LQR\)}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.2}{Linear Quadratic Regulator \(LQR\)}{chapter.2}% 8
 \BOOKMARK [2][-]{subsection.2.2.1}{Backward pass: Optimal step, Q and its derivatives}{section.2.2}% 9
 \BOOKMARK [2][-]{subsection.2.2.2}{Forward pass: V and its derivatives}{section.2.2}% 10
-\BOOKMARK [1][-]{section.2.3}{Algorithms}{chapter.2}% 11
-\BOOKMARK [2][-]{subsection.2.3.1}{Line search methods}{section.2.3}% 12
-\BOOKMARK [2][-]{subsection.2.3.2}{Regularization methods}{section.2.3}% 13
+\BOOKMARK [2][-]{subsection.2.2.3}{Roll-out}{section.2.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Feasible and non-feasible trajectories}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.3.1}{Non-feasible start in LQR}{section.2.3}% 13
+\BOOKMARK [1][-]{section.2.4}{Algorithms}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.4.1}{Sequential LQR Programming}{section.2.4}% 15
+\BOOKMARK [2][-]{subsection.2.4.2}{Interior loop \(LQR\)}{section.2.4}% 16
+\BOOKMARK [2][-]{subsection.2.4.3}{Line search methods}{section.2.4}% 17
+\BOOKMARK [2][-]{subsection.2.4.4}{Regularization methods}{section.2.4}% 18

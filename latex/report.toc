@@ -9,9 +9,15 @@
 \contentsline {section}{\numberline {2.1}Decomposition to sub-problems}{6}{section.2.1}
 \contentsline {subsubsection}{Goal in the general form}{6}{section*.5}
 \contentsline {subsubsection}{Goals in the DDP form}{6}{section*.6}
-\contentsline {section}{\numberline {2.2}Interior loop (LQR)}{7}{section.2.2}
+\contentsline {section}{\numberline {2.2}Linear Quadratic Regulator (LQR)}{7}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Backward pass: Optimal step, Q and its derivatives}{7}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Forward pass: V and its derivatives}{8}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}Algorithms}{9}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Line search methods}{9}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Regularization methods}{9}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.2.3}Roll-out}{9}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Feasible and non-feasible trajectories}{9}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Non-feasible start in LQR}{9}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Algorithms}{10}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Sequential LQR Programming}{10}{subsection.2.4.1}
+\contentsline {subsubsection}{Approximative LQR problem}{10}{section*.7}
+\contentsline {subsection}{\numberline {2.4.2}Interior loop (LQR)}{11}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Line search methods}{12}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}Regularization methods}{12}{subsection.2.4.4}
