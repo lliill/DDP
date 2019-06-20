@@ -17,7 +17,7 @@
 \contentsline {subsection}{\numberline {2.3.1}Non-feasible start in LQR}{9}{subsection.2.3.1}
 \contentsline {section}{\numberline {2.4}Algorithms}{10}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}Sequential LQR Programming}{10}{subsection.2.4.1}
-\contentsline {subsubsection}{Approximative LQR problem}{10}{section*.7}
-\contentsline {subsection}{\numberline {2.4.2}Interior loop (LQR)}{11}{subsection.2.4.2}
+\contentsline {subsubsection}{Approximative LQR problem}{11}{section*.7}
+\contentsline {subsection}{\numberline {2.4.2}Interior loop (LQR)}{12}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Line search methods}{12}{subsection.2.4.3}
 \contentsline {subsection}{\numberline {2.4.4}Regularization methods}{12}{subsection.2.4.4}

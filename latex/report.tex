@@ -481,6 +481,8 @@ V_x^i(x_i^-) &= V_x^i(x_i) - \epsilon_i^T V_{xx}^i
 \end{split}
 \end{equation}
 Once all $Q_u, Q_{uu}, Q_{ux}$ are computed, we have $\delta_u$ i.e. $k, K$. Then either we can compute a new feasible trajectory with the classical full-step LQR roll-out, or we can perform a partial step to have another non feasible trajectory with a smaller gaps\footnote{the gaps could be bigger in a non LQR model. For example, in the each sequential LQR phase of DDP, the gaps of trajectory could be bigger with respect to the real non linear dynamics constraint but reduced in the LQR approximation model.} \emph{with respect to} the LQR linear dynamics model.
+
+Remember that what we always obtain from a inner-loop the $k, K$. How to roll out the new trajectory depends on our roll-out policy which means that we can obtain a new non feasible trajectory or a feasible one.
 \section{Algorithms}
 In this section, we consider the DDP as a \emph{Non-Linear Optimization Problem} with respect to the state sequence $x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty$:
 \begin{equation}
@@ -492,7 +494,7 @@ In this section, we consider the DDP as a \emph{Non-Linear Optimization Problem}
 \ \forall i \in [0 \twodots N-1]
 \end{aligned}
 \end{equation}
-
+At the beginning of game, we may have an initial trajectory $x =(x_i)_{i \in [0 .. N]}, u = (u_i)_{i \in [0 .. N-1]}$ in hand. $x,u$ could be non feasible, i.e. not respect the (dynamic) equality constraint. So there will be some gaps in respect of the \emph{exact} numerical schema of the differential equation. Note that these gaps are different from the gaps in the following \emph{LQR} numerical schema.
 \subsection{Sequential LQR Programming}
 Let $\bar{L}, \bar{L}_T$ be some quadratic approximation functions of $L, L_T$, and $\bar{F}$ be some linear approximation function of $F$. We repeat the following procedure until the criteria of convergence is satisfied.
 \subsubsection{Approximative LQR problem}
@@ -573,7 +575,7 @@ If the trajectory $(x, u)$ does not respect the linear dynamics constraint, ther
 \begin{equation}
 \forall i \in [1 \twodots N], \ \epsilon_i := x_i - \bar{F}_{i-1}(x_{i-1}, u_{i-1})
 \end{equation}
-The gaps will not be changed if the optimization variable is $(delta_x, delta_u)$ instead of $(x,u)$. By \ref{NFLQR}, 
+The gaps will not be changed if the optimization variable is $(\delta_x, \delta_u)$ instead of $(x,u)$. By \ref{NFLQR}, 
 \subsection{Interior loop (LQR)}
 If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
 In a linear or quadratic case (for $Q_i$), practical results show that by doing the procedure described below only for one time, the trajectory will converge. It is comprehensible because each $\delta_u^*(i)$ is indeed the best step of control variable and we indeed have a real minimum on each $Q_i(x_i, u_i)$. The approximative equality in \ref{Q approx} and \ref{V approx} is nor more approximative but exact. The theory guarantees that we have a global minimum of $J$ by doing only one time backward and forward pass.
