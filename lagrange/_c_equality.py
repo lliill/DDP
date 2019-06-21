@@ -27,14 +27,14 @@ def newton_method(
         return t
 
     while True:
+        # Grad_f_x = gradient_f(x)
+        # # hfx = hessian_f(x)
+        # Hess_f_x_inv = np.linalg.inv(hessian_f(x))
         Grad_f_x, Hess_f_x = Diffs(x)
         Hess_f_x_inv = np.linalg.inv(Hess_f_x)
 
         decrement = Grad_f_x @ Hess_f_x_inv @ Grad_f_x
-        print("decrement", decrement)
-        print("grad", Grad_f_x)
         if decrement/2 <= e:
-            # print("decrement", decrement, "e", e)
             return x
         newton_step = -Hess_f_x_inv @ Grad_f_x
 
@@ -43,10 +43,13 @@ def newton_method(
 
 
 def augmented_lagrange_equality(f,  
-                                C: list,                                 
+                                C: list,
+                                #to add diffs_f, diffs_c
+                                # grad_f, hess_f, 
+                                # grad_c, hess_c,                                 
                                 diffs_f: "function of x, return grad_f_x, hess_f_x", 
                                 Diffs_c: "a list of function of x, each one returns grad_ci_x, hess_ci_x", 
-                                x_0, 
+                                x_start_0, 
                                 lamb_0: "Lagrangian multiplier, type np.array, same dim as constraints",
                                 nu_0 : "penalization, type number" = 2, 
                                 # tau_0: "residual tolearnce, type number" = 1, 
@@ -59,15 +62,27 @@ def augmented_lagrange_equality(f,
         C_x = np.array([ci(x) for ci in C])
         return f(x) + np.sum((-lamb + nu/2) * C_x) # - sum(lamb * C_x) + nu/2 * sum(C_x) 
 
+    # def grad_x_LA(x, lamb, nu):
+    #     return grad_f(x) - sum((lamb[i] - nu * c[i](x)) * grad_c[i](x) for i in range(m))
+
+    # def hess_x_LA(x, lamb, nu):
+    #     A = np.array([grad_c[i](x)] for i in range(m)) # jacobian
+    #     return hess_f(x) - nu * A.T @ A + sum((lamb[i] + nu *c[i](x)) * hess_c[i](x) for i in range(m))
+
     def diffs_LA(lamb, nu, x):
         grad_f_x, hess_f_x = diffs_f(x)
         Grad_c_x, Hess_c_x = zip(*(diffs_ci(x) for diffs_ci in Diffs_c))
 
+        # J = np.array([grad_c[i](x)] for i in range(m)) # jacobian_c
+        # r = np.array(c[i](x) for i in range(m))
+        # grad_x_LA = grad_f_x + (-lamb + nu * r) @ J
+        # hess_x_LA = hess_f_x + nu * J.T @ J + sum((-lamb[i] + nu * r[i]) * hess_c[i](x) for i in range(m))
+        # return (grad_x_LA, hess_x_LA)
         J = np.array(Grad_c_x) # jacobian_C
         r = np.array([ci(x) for ci in C])
         H = np.array(Hess_c_x) #tensor m * n * n
         grad_x_LA = grad_f_x + (-lamb + nu * r) @ J
-        hess_x_LA = hess_f_x + nu * J.T @ J + np.tensordot(-lamb + nu * r, H, axes = 1)
+        hess_x_LA = hess_f_x + nu * J.T @ J + np.tensordot(-lamb + nu * r, H, axis = 1)
 
         #* *#
         nonlocal D
@@ -98,11 +113,11 @@ def augmented_lagrange_equality(f,
     # tau = tau_0
     residual_tolerance = 1
     nu = nu_0
-    x = x_0
+    x_start = x_start_0
     for k in range(max_iter):
         L_A = partial(augemented_Lagrangian, lamb, nu)
         DL_A = partial(diffs_LA, lamb, nu)
-        x = newton_method(L_A, DL_A, x, e)
+        x= newton_method(L_A, DL_A, x_start, nu, e)
         
         grad_L = D["gradient_f"] - lamb @ D["constraints_Jacobian"]
         r = D["constraints_residuals"]
@@ -112,34 +127,6 @@ def augmented_lagrange_equality(f,
         lamb = lamb - nu * r
         nu, residual_tolerance = update(nu, r ,residual_tolerance)
 
-if __name__ == '__main__':
-    Q = np.array([[2, 0.5],
-                  [0.5, 1]])
-    p = np.array([1, 1])
 
-    def f(x):
-        x1 = x[0]
-        x2 = x[1]
-        return 2*x1**2 + x2**2 + x1*x2 + x1 + x2
-
-    def Diffs_f(x):
-        return 2*Q @ x + p, 2*Q       
-    
-
-    def c(x):
-        x1 = x[0]
-        x2 = x[1]
-        return x1 + x2 - 1    
-
-    def Diffs_c(x):
-        return np.array([1, 1]), np.zeros((2,2))   
-
-    C = [c]         
-    Diffs_C = [Diffs_c]
-
-    x = augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, np.array([0, 0]), np.array([1]))
-    print(x)
-
-test_LA()
 
 
