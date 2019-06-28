@@ -56,7 +56,7 @@ def test_LA():
     C = [c]         
     Diffs_C = [Diffs_c]
 
-    x = augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, np.array([0, 0]), np.array([0, 1]))
+    x = augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, np.array([0, 0]), np.array([1]))
     print(x)
 
 test_LA()

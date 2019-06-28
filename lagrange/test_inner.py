@@ -6,8 +6,6 @@ from functools import partial
 from time import time
 from scipy import linalg
 
-MAX_PENALIZATION = 1e12
-
 def newton_method(
         f: "convex function to be minimized",
         Diffs: "function of x, return Grad_f_x, Hess_f_x", 
@@ -104,8 +102,6 @@ def augmented_lagrange_equality(f,
         return all(Conditions)
 
     def update(penalization, constraints_residuals, residual_tolerance) -> "nu, tau":
-        if penalization > MAX_PENALIZATION:
-            return penalization, residual_tolerance
         if norm_inf(constraints_residuals) < residual_tolerance:
             return penalization, residual_tolerance/penalization**0.9
         else:
@@ -120,16 +116,22 @@ def augmented_lagrange_equality(f,
         # print(k)
         L_A = partial(augemented_Lagrangian, lamb, nu)
         DL_A = partial(diffs_LA, lamb, nu)
+
+        t1 = time()
         x = newton_method(L_A, DL_A, x, e)
+        t2 = time()
+        print("\t{}th inner problem; nu = {}; time = {}".format(k, nu, t2 - t1))
         
         grad_L = D["gradient_f"] - lamb @ D["constraints_Jacobian"]
         r = D["constraints_residuals"]
+        
         if norm_inf(r) <= residual_tolerance:
             if KKT_test(grad_L, r):
                 return x
 
         lamb = lamb - nu * r
         nu, residual_tolerance = update(nu, r ,residual_tolerance)
+
 
 if __name__ == '__main__':
     # Q = np.array([[2, 0.5],
@@ -162,11 +164,8 @@ if __name__ == '__main__':
 # test_LA()
 
 
-    import numpy as np
-    from scipy.sparse import csc_matrix
-    from functools import partial
-    from time import time
-    import osqp
+
+
 
     N = 100 #dimension of variable
     M = 50  #contraints number
@@ -202,7 +201,7 @@ if __name__ == '__main__':
 
     def comparaison(K: "iterations"):
         T_LA = []
-        T_osqp = []
+  
 
         for _ in range(K):
             P = random_SPD_matrix(N)
@@ -217,22 +216,12 @@ if __name__ == '__main__':
             t_LA = t2 - t1
             T_LA.append(t_LA)
 
-            print("by LA, x* =", optimum, "process time {}".format(t_LA))
+            print("by LA, ",  "process time {}".format(t_LA))
 
-            P = csc_matrix(P)
-            A = csc_matrix(A)
-            l = b; u = b
-
-            m = osqp.OSQP()
-            m.setup(P=P, q=q, A=A, l=l, u=u)
-            results = m.solve()
-
-            T_osqp.append(results.info.run_time)
-            print("by OSQP, x* =", results.x, "run time {}".format(results.info.run_time))
 
         avg_LA = sum(T_LA)/K
-        avg_osqp = sum(T_osqp)/K
 
-        print("AVERAGE TIME by {} iterations:\n LA: {}, OSQP: {}".format(K, avg_LA, avg_osqp))
+
+        print("AVERAGE TIME by {} iterations:\n LA: {}, ".format(K, avg_LA))
 
     comparaison(100)

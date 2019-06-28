@@ -3,10 +3,7 @@ import matplotlib.pyplot as plt
 # from DDP.Trust_Region.newton_barriers import newton_method
 import math
 from functools import partial
-from time import time
-from scipy import linalg
-
-MAX_PENALIZATION = 1e12
+from time import process_time
 
 def newton_method(
         f: "convex function to be minimized",
@@ -32,11 +29,9 @@ def newton_method(
 
     while True:
         Grad_f_x, Hess_f_x = Diffs(x)
-        # Hess_f_x_inv = np.linalg.inv(Hess_f_x)
-        Hg = linalg.solve(Hess_f_x, Grad_f_x)
-        newton_step = -Hg
+        Hess_f_x_inv = np.linalg.inv(Hess_f_x)
 
-        decrement = Grad_f_x @ Hg
+        decrement = Grad_f_x @ Hess_f_x_inv @ Grad_f_x
         # print("decrement", decrement)
         # print("grad", Grad_f_x)
         if decrement < 0:
@@ -44,8 +39,7 @@ def newton_method(
         elif decrement/2 <= e:
             # print("decrement", decrement, "e", e)
             return x
-        # newton_step = -Hess_f_x_inv @ Grad_f_x
-
+        newton_step = -Hess_f_x_inv @ Grad_f_x
         # descent = Grad_f_x @ newton_step
         # if descent >= 0:
         #     raise Exception("Newton step is not a descent direction!", "full descent:{}".format(descent))
@@ -62,12 +56,10 @@ def augmented_lagrange_equality(f,
                                 lamb_0: "Lagrangian multiplier, type np.array, same dim as constraints, >= 1",
                                 nu_0 : "penalization, type number" = 2, 
                                 # tau_0: "residual tolearnce, type number" = 1, 
-                                e: "newton tolearnce, type number" = 1e-8,  
-                                stopping_tolerance: "for ||grad L|| and ||c(x)||" = {"grad_L" :1e-4,
-                                                            'constraints_residuals': 1e-4},                                                 
+                                e: "newton tolearnce, type number" = 1e-8,                                                   
                                 max_iter = 100,
                                 verbose = False,
-                                plot = False) -> "x*":
+                                plot = False):
     D = dict()
     # m = len(C)
     def augemented_Lagrangian(lamb: np.array, nu: float, x):
@@ -99,17 +91,15 @@ def augmented_lagrange_equality(f,
         norm = np.linalg.norm
         inf = np.inf
         Conditions = []
-        Conditions.append( norm(grad_L, ord = inf) < stopping_tolerance['grad_L'] )
-        Conditions.append( norm(constraints_residuals, ord = inf) < stopping_tolerance['constraints_residuals'])
+        Conditions.append( norm(grad_L, ord = inf) < 1e-8 )
+        Conditions.append( norm(constraints_residuals, ord = inf) < 1e-8 )
         return all(Conditions)
 
     def update(penalization, constraints_residuals, residual_tolerance) -> "nu, tau":
-        if penalization > MAX_PENALIZATION:
-            return penalization, residual_tolerance
         if norm_inf(constraints_residuals) < residual_tolerance:
-            return penalization, residual_tolerance/penalization**0.9
+            return penalization, residual_tolerance/nu**0.9
         else:
-            return 10  * penalization, 1/penalization**0.1
+            return 100 * penalization, 1/nu**0.1
 
     lamb = np.array(lamb_0) #important to be np array
     # tau = tau_0
@@ -120,119 +110,48 @@ def augmented_lagrange_equality(f,
         # print(k)
         L_A = partial(augemented_Lagrangian, lamb, nu)
         DL_A = partial(diffs_LA, lamb, nu)
+
+        t1 = process_time()
         x = newton_method(L_A, DL_A, x, e)
+        t2 = process_time()
+        print("{}th inner problem; nu = {}; process_time = {}")
         
         grad_L = D["gradient_f"] - lamb @ D["constraints_Jacobian"]
         r = D["constraints_residuals"]
-        if norm_inf(r) <= residual_tolerance:
-            if KKT_test(grad_L, r):
-                return x
+        if KKT_test(grad_L, r):
+            return x
 
         lamb = lamb - nu * r
         nu, residual_tolerance = update(nu, r ,residual_tolerance)
 
 if __name__ == '__main__':
-    # Q = np.array([[2, 0.5],
-    #               [0.5, 1]])
-    # p = np.array([1, 1])
+    Q = np.array([[2, 0.5],
+                  [0.5, 1]])
+    p = np.array([1, 1])
 
-    # def f(x):
-    #     x1 = x[0]
-    #     x2 = x[1]
-    #     return 2*x1**2 + x2**2 + x1*x2 + x1 + x2
+    def f(x):
+        x1 = x[0]
+        x2 = x[1]
+        return 2*x1**2 + x2**2 + x1*x2 + x1 + x2
 
-    # def Diffs_f(x):
-    #     return 2*Q @ x + p, 2*Q       
+    def Diffs_f(x):
+        return 2*Q @ x + p, 2*Q       
     
 
-    # def c(x):
-    #     x1 = x[0]
-    #     x2 = x[1]
-    #     return x1 + x2 - 1    
+    def c(x):
+        x1 = x[0]
+        x2 = x[1]
+        return x1 + x2 - 1    
 
-    # def Diffs_c(x):
-    #     return np.array([1, 1]), np.zeros((2,2))   
+    def Diffs_c(x):
+        return np.array([1, 1]), np.zeros((2,2))   
 
-    # C = [c]         
-    # Diffs_C = [Diffs_c]
+    C = [c]         
+    Diffs_C = [Diffs_c]
 
-    # x = augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, np.array([0, 0]), np.array([1]))
-    # print(x)
+    x = augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, np.array([0, 0]), np.array([1]))
+    print(x)
 
 # test_LA()
 
 
-    import numpy as np
-    from scipy.sparse import csc_matrix
-    from functools import partial
-    from time import time
-    import osqp
-
-    N = 100 #dimension of variable
-    M = 50  #contraints number
-
-    def random_SPD_matrix(n):
-        return n*2 * (np.random.rand(n) + 1) * np.eye(n)
-
-    def LA_QP_solver(P=None, q=None, A=None, b = None):
-        """
-        A : m * n array
-        b : m array
-        """
-        def f(x):
-            return 1/2 * x @ P @ x + q @ x
-
-        def Diffs_f(x):
-            return P @ x + q, P
-
-        def c(i, x):
-            return A[i] @ x - b[i]
-
-        H_zeros = np.zeros((N, N))
-
-        def Diffs_c(i, x):
-            return A[i], H_zeros
-
-        C =       [partial(c, i) for i in range(M)]
-        Diffs_C = [partial(Diffs_c, i) for i in range(M)]
-
-        x_0 = np.zeros(N)
-        lamb_0 = np.ones(M)
-        return augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, x_0, lamb_0)
-
-    def comparaison(K: "iterations"):
-        T_LA = []
-        T_osqp = []
-
-        for _ in range(K):
-            P = random_SPD_matrix(N)
-            q = N * np.random.rand(N)
-
-            A = M * np.random.rand(M, N)
-            b = M * np.random.rand(M)
-
-            t1 = time()
-            optimum = LA_QP_solver(P, q, A, b)
-            t2 = time()
-            t_LA = t2 - t1
-            T_LA.append(t_LA)
-
-            print("by LA, x* =", optimum, "process time {}".format(t_LA))
-
-            P = csc_matrix(P)
-            A = csc_matrix(A)
-            l = b; u = b
-
-            m = osqp.OSQP()
-            m.setup(P=P, q=q, A=A, l=l, u=u)
-            results = m.solve()
-
-            T_osqp.append(results.info.run_time)
-            print("by OSQP, x* =", results.x, "run time {}".format(results.info.run_time))
-
-        avg_LA = sum(T_LA)/K
-        avg_osqp = sum(T_osqp)/K
-
-        print("AVERAGE TIME by {} iterations:\n LA: {}, OSQP: {}".format(K, avg_LA, avg_osqp))
-
-    comparaison(100)
