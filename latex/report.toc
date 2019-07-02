@@ -21,3 +21,4 @@
 \contentsline {subsection}{\numberline {2.4.2}Interior loop (LQR)}{12}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Line search methods}{12}{subsection.2.4.3}
 \contentsline {subsection}{\numberline {2.4.4}Regularization methods}{12}{subsection.2.4.4}
+\contentsline {chapter}{\numberline {3}Augmented Lagrangian DDP}{14}{chapter.3}

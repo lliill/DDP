@@ -500,7 +500,7 @@ Let $\bar{L}, \bar{L}_T$ be some quadratic approximation functions of $L, L_T$, 
 \subsubsection{Approximative LQR problem}
 \begin{equation}
 \begin{aligned}
-&\underset{x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} \bar{L}_i(x_i, u_i) + \bar{L}_T(x_N) \\
+&\underset{x \in \mathbb{X}^{N+1}, u \in \mathbb{U}^N}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} \bar{L}_i(x_i, u_i) + \bar{L}_T(x_N) \\
 &\text{subject to}       &x(0)      &= x_0,  \\ %or \epsilon_{0} 
 &							      &x_{i+1}  &= \bar{F}_i(x_i, u_i) 
 %+ \epsilon_{i+1} 
@@ -649,6 +649,35 @@ Df (x,u)=
 D^2f (x,u)= 0 
 \end{equation}
 
+\chapter{Augmented Lagrangian DDP}
+By the method augmented Lagrangian, for solving the problem \ref{eq:OCP equality constraints} with equality constraints, we solve sequentially \ref{eq:OCP augmented Lagrangian} by updating Lagrangian multiplier $\lambda$ and penalization parameter $\mu$ until the KKT conditions for the original problem are satisfied:
+\begin{equation}
+\label{eq:OCP equality constraints}
+\begin{aligned}
+&\underset{x \in \mathbb{X}^{N+1}, u \in \mathbb{U}^N}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} L_i(x_i, u_i) + L_T(x_N) & \\
+&\text{subject to}       &x(0)      &= x_0,  & \\ %or \epsilon_{0} 
+&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 \twodots N-1] \\
+&	&\color{red} c_j(x, u) &\color{red} = 0 &\forall j \in [0 \twodots M-1]
+\end{aligned}
+\end{equation}
+Let $c : \mathbb{X}^{N+1} \times \mathbb{U}^N \rightarrow \mathbb{R}^M$ be the function for the set of constraints. However, one constraint $c_j$ usually does not apply on all the states $x$ or controls $u$ but one $x_i, u_i$ (or a few) of them. So, in practice, I define $c_j^i : \mathbb{X} \times \mathbb{U} \rightarrow \mathbb{R}$ for each $x_i, u_i$ and $c_j^T : \mathbb{X} \rightarrow \mathbb{R}$ if the constraint $c_j$ applies on them i.e. $j \sim i$. Then I "augment" the loss (and terminal loss) with related constraint(s): 
+\begin{tcolorbox}
+\begin{equation}
+\mathcal{L}^A_i(x_i, u_i, \lambda, \mu) := L_i(x_i, u_i) 
+-\sum_{j \sim i}\lambda_j c_j(x_i, u_i) + \frac{\mu}{2} \sum_{j \sim i} c_j^2(x_i, u_i) \quad \forall i \in [0 \twodots N-1]
+\end{equation}
+\end{tcolorbox}
+
+\begin{equation}
+\label{eq:OCP augmented Lagrangian}
+\begin{aligned}
+&\underset{x \in \mathbb{X}^{N+1}, u \in \mathbb{U}^N}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} \mathcal{L}^A_i(x_i, u_i, \lambda, \mu) + \mathcal{L}^A_T(x_N, \lambda, \mu) & \\
+&\text{subject to}       &x(0)      &= x_0,  & \\ %or \epsilon_{0} 
+&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 \twodots N-1] 
+\end{aligned}
+\end{equation}
+For all $\lambda \in \mathbb{R}^M, \mu \in \mathbb{R}^{+*}$, the problem  \ref{eq:OCP augmented Lagrangian} can be solved by a DDP (or FDDP) solver (ref crocoddyl)
+%- \sum_{j \in [0 \twodots M-1]}\lambda_j c_j(x, u) + \mu/2 \sum_{j \in [0 \twodots M-1]}
 \section*{Reminder of Differential calculus}
 
 \begin{theo}[Second order differential of composition of functions]
