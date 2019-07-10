@@ -12,6 +12,9 @@
 %\usepackage{cite}
 \usepackage{tcolorbox}
 
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 \newtheorem{theo}{Theorem}[section]
 \newtheorem{coro}{Corollary}[theo]
 \newtheorem{lem}[theo]{Lemma}
@@ -576,108 +579,113 @@ If the trajectory $(x, u)$ does not respect the linear dynamics constraint, ther
 \forall i \in [1 \twodots N], \ \epsilon_i := x_i - \bar{F}_{i-1}(x_{i-1}, u_{i-1})
 \end{equation}
 The gaps will not be changed if the optimization variable is $(\delta_x, \delta_u)$ instead of $(x,u)$. By \ref{NFLQR}, 
-\subsection{Interior loop (LQR)}
-If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
-In a linear or quadratic case (for $Q_i$), practical results show that by doing the procedure described below only for one time, the trajectory will converge. It is comprehensible because each $\delta_u^*(i)$ is indeed the best step of control variable and we indeed have a real minimum on each $Q_i(x_i, u_i)$. The approximative equality in \ref{Q approx} and \ref{V approx} is nor more approximative but exact. The theory guarantees that we have a global minimum of $J$ by doing only one time backward and forward pass.
-In a non linear and non quadratic case, things are much more complicate: we need iterate this procedure many times until we have a satisfied convergence i.e. the trajectory of control is becoming to satisfy the hypothesis of dynamic programming and the $Q_i$ is becoming ``locally quadratic''.
-
-First, we compute the $DV_N(x_N) = DL_{final}(x_N)$ which is directly computable. Once we have $DV_N(x_N)$, we have $DQ_{N-1}(x_{N-1}, u_{N-1})$. Then we can find $DV_{N-1}(x_{N-1})$, and $DQ_{N-2}(x_{N-2}, u_{N-2})$ by the same method. We iterate the process until we have all $DQ_i(x_i, u_i)$ from $N-1$ to $0$. 
-
-Second, we compute the ``best step of control variable'' $\delta_u^* = (\delta_u^*(i))_{i\in \{0,...,N-1\}}$. If we are in a linear or quadratic case, we update the new control trajectory simply by $u = u + \delta_u$ and then compute the new and converging state trajectory by Euler method. In a non linear and non quadratic case, we need to use line search methods  to find a best step in the direction of $\delta_u^*$ and regularization methods if the hessian matrices are not ``regular''.
-
-\subsection{Line search methods}
-
-\subsection{Regularization methods}
-
-
-
-\subsection*{Back to our simple exemple}
-Initially, we generate a original sequence of $x, u$: $x_i =0, \ u_i =0 \ \forall i \in \{1,...,N \}$. Restricting in the plan i.e. setting $x,u,p^* \in \mathbb{R}^2$, we have a better graphic representation. Our goal is to make our robot $x$ find a path to go to some place $p^*$ at the end of time $T$.
-
-In the first iteration, the final on-going loss is clair:
-\[
-V_N^*(x) = V_N(x) = \frac{w}{2} \|x - p^*\| \footnote{if not mentioned, the norm is euclidean}
-\]
-\begin{equation}
-    D V_N^*(x) = w (x^T -  p^{*^T})
-\end{equation}
-
-\begin{equation}
-    D^2 V_N^*(x) = w Id_{2 \times 2}
-\end{equation}
-
-In our case, 
-\begin{equation*}
-    l(x,u) = u^T u
-\end{equation*}
-
-\begin{equation}
-D l(x,u) =
- \begin{pmatrix}
-0&0 &2u_1&2u_2
-\end{pmatrix} 
-\end{equation}
-
-\begin{equation}
-    D_x l(x,u) = 0, \ D_u l(x,u) = 2u
-\end{equation}
-
-\begin{equation}
-D^2 l(x,u) =
- \begin{pmatrix}
-0&0 &0 &0 \\
-0&0 &0 &0 \\
-0&0 &1 &0 \\
-0&0 &0 &1
-\end{pmatrix} 
-\end{equation}
-
-\begin{equation}
-    D_{uu}^2 l = 2 Id_{2 \times 2},\ D_{xx}^2 l(x, u) = 0,\ D_{xu}^2 l (x,u) = 0
-\end{equation}
-And
-
-\begin{equation}
-Df (x,u)=
-   \begin{pmatrix}
-1&0 &d&0\\ 
-0&1 &0&d
-\end{pmatrix} 
-\end{equation}
-
-\begin{equation}
-D^2f (x,u)= 0 
-\end{equation}
+%\subsection{Interior loop (LQR)}
+%If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
+%In a linear or quadratic case (for $Q_i$), practical results show that by doing the procedure described below only for one time, the trajectory will converge. It is comprehensible because each $\delta_u^*(i)$ is indeed the best step of control variable and we indeed have a real minimum on each $Q_i(x_i, u_i)$. The approximative equality in \ref{Q approx} and \ref{V approx} is nor more approximative but exact. The theory guarantees that we have a global minimum of $J$ by doing only one time backward and forward pass.
+%In a non linear and non quadratic case, things are much more complicate: we need iterate this procedure many times until we have a satisfied convergence i.e. the trajectory of control is becoming to satisfy the hypothesis of dynamic programming and the $Q_i$ is becoming ``locally quadratic''.
+%
+%First, we compute the $DV_N(x_N) = DL_{final}(x_N)$ which is directly computable. Once we have $DV_N(x_N)$, we have $DQ_{N-1}(x_{N-1}, u_{N-1})$. Then we can find $DV_{N-1}(x_{N-1})$, and $DQ_{N-2}(x_{N-2}, u_{N-2})$ by the same method. We iterate the process until we have all $DQ_i(x_i, u_i)$ from $N-1$ to $0$. 
+%
+%Second, we compute the ``best step of control variable'' $\delta_u^* = (\delta_u^*(i))_{i\in \{0,...,N-1\}}$. If we are in a linear or quadratic case, we update the new control trajectory simply by $u = u + \delta_u$ and then compute the new and converging state trajectory by Euler method. In a non linear and non quadratic case, we need to use line search methods  to find a best step in the direction of $\delta_u^*$ and regularization methods if the hessian matrices are not ``regular''.
+%
+%\subsection{Line search methods}
+%
+%\subsection{Regularization methods}
+%
+%
+%
+%\subsection*{Back to our simple exemple}
+%Initially, we generate a original sequence of $x, u$: $x_i =0, \ u_i =0 \ \forall i \in \{1,...,N \}$. Restricting in the plan i.e. setting $x,u,p^* \in \mathbb{R}^2$, we have a better graphic representation. Our goal is to make our robot $x$ find a path to go to some place $p^*$ at the end of time $T$.
+%
+%In the first iteration, the final on-going loss is clair:
+%\[
+%V_N^*(x) = V_N(x) = \frac{w}{2} \|x - p^*\| \footnote{if not mentioned, the norm is euclidean}
+%\]
+%\begin{equation}
+%    D V_N^*(x) = w (x^T -  p^{*^T})
+%\end{equation}
+%
+%\begin{equation}
+%    D^2 V_N^*(x) = w Id_{2 \times 2}
+%\end{equation}
+%
+%In our case, 
+%\begin{equation*}
+%    l(x,u) = u^T u
+%\end{equation*}
+%
+%\begin{equation}
+%D l(x,u) =
+% \begin{pmatrix}
+%0&0 &2u_1&2u_2
+%\end{pmatrix} 
+%\end{equation}
+%
+%\begin{equation}
+%    D_x l(x,u) = 0, \ D_u l(x,u) = 2u
+%\end{equation}
+%
+%\begin{equation}
+%D^2 l(x,u) =
+% \begin{pmatrix}
+%0&0 &0 &0 \\
+%0&0 &0 &0 \\
+%0&0 &1 &0 \\
+%0&0 &0 &1
+%\end{pmatrix} 
+%\end{equation}
+%
+%\begin{equation}
+%    D_{uu}^2 l = 2 Id_{2 \times 2},\ D_{xx}^2 l(x, u) = 0,\ D_{xu}^2 l (x,u) = 0
+%\end{equation}
+%And
+%
+%\begin{equation}
+%Df (x,u)=
+%   \begin{pmatrix}
+%1&0 &d&0\\ 
+%0&1 &0&d
+%\end{pmatrix} 
+%\end{equation}
+%
+%\begin{equation}
+%D^2f (x,u)= 0 
+%\end{equation}
 
 \chapter{Augmented Lagrangian DDP}
 By the method augmented Lagrangian, for solving the problem \ref{eq:OCP equality constraints} with equality constraints, we solve sequentially \ref{eq:OCP augmented Lagrangian} by updating Lagrangian multiplier $\lambda$ and penalization parameter $\mu$ until the KKT conditions for the original problem are satisfied:
 \begin{equation}
 \label{eq:OCP equality constraints}
 \begin{aligned}
-&\underset{x \in \mathbb{X}^{N+1}, u \in \mathbb{U}^N}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} L_i(x_i, u_i) + L_T(x_N) & \\
+&\underset{x \in \mathbb{X}^{T+1}, u \in \mathbb{U}^T}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{T-1} L_i(x_i, u_i) + L_T(x_T) & \\
 &\text{subject to}       &x(0)      &= x_0,  & \\ %or \epsilon_{0} 
-&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 \twodots N-1] \\
+&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 \twodots T-1] \\
 &	&\color{red} c_j(x, u) &\color{red} = 0 &\forall j \in [0 \twodots M-1]
 \end{aligned}
 \end{equation}
-Let $c : \mathbb{X}^{N+1} \times \mathbb{U}^N \rightarrow \mathbb{R}^M$ be the function for the set of constraints. However, one constraint $c_j$ usually does not apply on all the states $x$ or controls $u$ but one $x_i, u_i$ (or a few) of them. So, in practice, I define $c_j^i : \mathbb{X} \times \mathbb{U} \rightarrow \mathbb{R}$ for each $x_i, u_i$ and $c_j^T : \mathbb{X} \rightarrow \mathbb{R}$ if the constraint $c_j$ applies on them i.e. $j \sim i$. Then I "augment" the loss (and terminal loss) with related constraint(s): 
+Let $c : \mathbb{X}^{T+1} \times \mathbb{U}^T \rightarrow \mathbb{R}^M$ \footnote{Let $\mathbb{X}$ be the state space, for example $\mathbb{R}^n$ and $\mathbb{U}$ be the control space, for example $\mathbb{R}^m$. We can use $\mathcal{X} := \mathbb{X}^{T+1}, \mathcal{U}:= \mathbb{X}^T$ to denote the state and control trajectory space.}be the function for the set of constraints. However, one constraint $c_j$ usually does not apply on all the states $x$ or controls $u$ but one $x_i, u_i$ (or a few) of them and they are \emph{independent}. So, in practice, I define $c_j^i : \mathbb{X} \times \mathbb{U} \rightarrow \mathbb{R}$ for each $x_i, u_i$ and $c_j^T : \mathbb{X} \rightarrow \mathbb{R}$ if the constraint $c_j$ applies on them i.e. $j \sim i$. Then I "augment" the loss (and terminal loss) with related constraint(s): 
 \begin{tcolorbox}
 \begin{equation}
 \mathcal{L}^A_i(x_i, u_i, \lambda, \mu) := L_i(x_i, u_i) 
--\sum_{j \sim i}\lambda_j c_j(x_i, u_i) + \frac{\mu}{2} \sum_{j \sim i} c_j^2(x_i, u_i) \quad \forall i \in [0 \twodots N-1]
+-\sum_{j \sim i}\lambda_j c_j(x_i, u_i) + \frac{\mu}{2} \sum_{j \sim i} c_j^2(x_i, u_i) \quad \forall i \in [0 \twodots T-1]
 \end{equation}
 \end{tcolorbox}
 
 \begin{equation}
 \label{eq:OCP augmented Lagrangian}
 \begin{aligned}
-&\underset{x \in \mathbb{X}^{N+1}, u \in \mathbb{U}^N}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} \mathcal{L}^A_i(x_i, u_i, \lambda, \mu) + \mathcal{L}^A_T(x_N, \lambda, \mu) & \\
+&\underset{x \in \mathbb{X}^{T+1}, u \in \mathbb{U}^T}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{T-1} \mathcal{L}^A_i(x_i, u_i, \lambda, \mu) + \mathcal{L}^A_T(x_T, \lambda, \mu) & \\
 &\text{subject to}       &x(0)      &= x_0,  & \\ %or \epsilon_{0} 
-&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 \twodots N-1] 
+&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 \twodots T-1] 
 \end{aligned}
 \end{equation}
 For all $\lambda \in \mathbb{R}^M, \mu \in \mathbb{R}^{+*}$, the problem  \ref{eq:OCP augmented Lagrangian} can be solved by a DDP (or FDDP) solver (ref crocoddyl)
 %- \sum_{j \in [0 \twodots M-1]}\lambda_j c_j(x, u) + \mu/2 \sum_{j \in [0 \twodots M-1]}
+\chapter*{Appendix}
+\section*{Examples with Augmented Lagrangian method}
+Here I show some graphs of convergence of Augmented Lagrangian method. I use Augmented Lagrangian method to solve classical \emph{Quadratic Programming} problems with equalities constraints. The dimension of problem is $100$ and the number of constraints is $50$ with random matrices and vectors.
+\includegraphics[scale=0.5]{classical3}
+
 \section*{Reminder of Differential calculus}
 
 \begin{theo}[Second order differential of composition of functions]

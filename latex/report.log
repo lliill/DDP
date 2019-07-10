@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.6.7)  2 JUL 2019 17:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.6.7)  10 JUL 2019 17:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -878,20 +878,20 @@ Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
  (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -927,7 +927,7 @@ LaTeX Font Info:    ... okay on input line 38.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box43
-Package hyperref Info: Link coloring OFF on input line 38.
+Package hyperref Info: Link coloring OFF on input line 41.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -936,9 +936,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count136
 )
-LaTeX Info: Redefining \ref on input line 38.
-LaTeX Info: Redefining \pageref on input line 38.
-LaTeX Info: Redefining \nameref on input line 38.
+LaTeX Info: Redefining \ref on input line 41.
+LaTeX Info: Redefining \pageref on input line 41.
+LaTeX Info: Redefining \nameref on input line 41.
 
 (./report.out) (./report.out)
 \@outlinefile=\write6
@@ -973,17 +973,17 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 41.
+LaTeX Font Info:    Try loading font information for U+msa on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 41.
+LaTeX Font Info:    Try loading font information for U+msb on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 41.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -997,7 +997,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.44 \chapter
+l.47 \chapter
              *{Introduction} [1
 
 ] [2
@@ -1007,59 +1007,63 @@ Chapter 1.
 [3
 
 ] [4]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 204.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 207.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 204.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 207.
  [5]
 Chapter 2.
 [6
 
 ] [7]
 
-LaTeX Warning: Citation `TassaIROS12' on page 8 undefined on input line 355.
+LaTeX Warning: Citation `TassaIROS12' on page 8 undefined on input line 358.
 
 [8pdfTeX warning (ext4): destination with the same identifier (name{Hfootnote.4
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.403 \end{equation}
+l.406 \end{equation}
                     ] [9] [10] [11]
-Overfull \hbox (6.03987pt too wide) in paragraph at lines 584--585
-\OML/cmm/m/it/10 DV[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 )$, w
-e have $\OML/cmm/m/it/10 DQ[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; u[]\OT1/cmr
-/m/n/10 )$. Then we can find $\OML/cmm/m/it/10 DV[]\OT1/cmr/m/n/10 (\OML/cmm/m/
-it/10 x[]\OT1/cmr/m/n/10 )$, and $\OML/cmm/m/it/10 DQ[]\OT1/cmr/m/n/10 (\OML/cm
-m/m/it/10 x[]; u[]\OT1/cmr/m/n/10 )$
+Chapter 3.
+[12
+
+] <./images/classical3.png, id=251, 904.0977pt x 597.6729pt>
+File: ./images/classical3.png Graphic file (type png)
+
+<use ./images/classical3.png>
+Package pdftex.def Info: ./images/classical3.png used on input line 687.
+(pdftex.def)             Requested size: 452.04774pt x 298.83571pt.
+
+Overfull \hbox (18.42775pt too wide) in paragraph at lines 686--688
+[] 
  []
 
-[12] [13]
-Chapter 3.
-[14
+[13
 
-] [15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 715.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 715.
+ <./images/classical3.png>] [14]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 723.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 723.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 715.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 715.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 723.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 723.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 058D8D6EB4622F57B4799BAC1A23AD50;1431.
+(rerunfilecheck)             Checksum: D1F9D1203638D511490A5D727B25328B;1207.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 715.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 723.
  ) 
 Here is how much of TeX's memory you used:
- 16595 strings out of 493029
- 302134 string characters out of 6136235
- 388376 words of memory out of 5000000
- 19735 multiletter control sequences out of 15000+600000
+ 16588 strings out of 493029
+ 302054 string characters out of 6136235
+ 387391 words of memory out of 5000000
+ 19736 multiletter control sequences out of 15000+600000
  14359 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  54i,23n,73p,925b,440s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1084,14 +1088,14 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf
 nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/s
-ymbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.
-pfb>
-Output written on report.pdf (16 pages, 292982 bytes).
+fonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
+/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
+msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
+Output written on report.pdf (15 pages, 349121 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 339 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 368 PDF objects out of 1000 (max. 8388607)
+ 313 compressed objects within 4 object streams
+ 98 named destinations out of 1000 (max. 500000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
 

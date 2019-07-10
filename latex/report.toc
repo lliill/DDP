@@ -18,7 +18,4 @@
 \contentsline {section}{\numberline {2.4}Algorithms}{10}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}Sequential LQR Programming}{10}{subsection.2.4.1}
 \contentsline {subsubsection}{Approximative LQR problem}{11}{section*.7}
-\contentsline {subsection}{\numberline {2.4.2}Interior loop (LQR)}{12}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Line search methods}{12}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}Regularization methods}{12}{subsection.2.4.4}
-\contentsline {chapter}{\numberline {3}Augmented Lagrangian DDP}{14}{chapter.3}
+\contentsline {chapter}{\numberline {3}Augmented Lagrangian DDP}{12}{chapter.3}

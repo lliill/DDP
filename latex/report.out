@@ -13,7 +13,4 @@
 \BOOKMARK [2][-]{subsection.2.3.1}{Non-feasible start in LQR}{section.2.3}% 13
 \BOOKMARK [1][-]{section.2.4}{Algorithms}{chapter.2}% 14
 \BOOKMARK [2][-]{subsection.2.4.1}{Sequential LQR Programming}{section.2.4}% 15
-\BOOKMARK [2][-]{subsection.2.4.2}{Interior loop \(LQR\)}{section.2.4}% 16
-\BOOKMARK [2][-]{subsection.2.4.3}{Line search methods}{section.2.4}% 17
-\BOOKMARK [2][-]{subsection.2.4.4}{Regularization methods}{section.2.4}% 18
-\BOOKMARK [0][-]{chapter.3}{Augmented Lagrangian DDP}{}% 19
+\BOOKMARK [0][-]{chapter.3}{Augmented Lagrangian DDP}{}% 16
