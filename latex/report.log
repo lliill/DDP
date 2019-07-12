@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.6.7)  10 JUL 2019 17:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.6.7)  11 JUL 2019 11:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1036,34 +1036,48 @@ Chapter 3.
 File: ./images/classical3.png Graphic file (type png)
 
 <use ./images/classical3.png>
-Package pdftex.def Info: ./images/classical3.png used on input line 687.
+Package pdftex.def Info: ./images/classical3.png used on input line 690.
 (pdftex.def)             Requested size: 452.04774pt x 298.83571pt.
 
-Overfull \hbox (18.42775pt too wide) in paragraph at lines 686--688
-[] 
+Overfull \hbox (18.42775pt too wide) in paragraph at lines 690--691
+ [][] 
  []
+
+<./images/monter3.png, id=253, 891.0891pt x 536.2434pt>
+File: ./images/monter3.png Graphic file (type png)
+
+<use ./images/monter3.png>
+Package pdftex.def Info: ./images/monter3.png used on input line 697.
+(pdftex.def)             Requested size: 445.54346pt x 268.12103pt.
+
+Overfull \hbox (11.92346pt too wide) in paragraph at lines 697--698
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [13
 
- <./images/classical3.png>] [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 723.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 723.
+ <./images/classical3.png>] [14 <./images/monter3.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 735.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 735.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 723.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 723.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 735.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 735.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D1F9D1203638D511490A5D727B25328B;1207.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 723.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 735.
  ) 
 Here is how much of TeX's memory you used:
- 16588 strings out of 493029
- 302054 string characters out of 6136235
+ 16596 strings out of 493029
+ 302195 string characters out of 6136235
  387391 words of memory out of 5000000
- 19736 multiletter control sequences out of 15000+600000
+ 19741 multiletter control sequences out of 15000+600000
  14359 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  54i,23n,73p,925b,440s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1092,10 +1106,10 @@ fonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 /msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
 msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on report.pdf (15 pages, 349121 bytes).
+Output written on report.pdf (15 pages, 407895 bytes).
 PDF statistics:
- 368 PDF objects out of 1000 (max. 8388607)
- 313 compressed objects within 4 object streams
- 98 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 372 PDF objects out of 1000 (max. 8388607)
+ 315 compressed objects within 4 object streams
+ 100 named destinations out of 1000 (max. 500000)
+ 151 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -683,8 +683,20 @@ For all $\lambda \in \mathbb{R}^M, \mu \in \mathbb{R}^{+*}$, the problem  \ref{e
 %- \sum_{j \in [0 \twodots M-1]}\lambda_j c_j(x, u) + \mu/2 \sum_{j \in [0 \twodots M-1]}
 \chapter*{Appendix}
 \section*{Examples with Augmented Lagrangian method}
-Here I show some graphs of convergence of Augmented Lagrangian method. I use Augmented Lagrangian method to solve classical \emph{Quadratic Programming} problems with equalities constraints. The dimension of problem is $100$ and the number of constraints is $50$ with random matrices and vectors.
+Here I show some graphs of convergence of Augmented Lagrangian method. I use Augmented Lagrangian method to solve classical \emph{Quadratic Programming} problems with equalities constraints. The dimension of problem is $100$ and the number of constraints is $50$ with random matrices and vectors. $\nu$ is the penalization term.
+
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.5]{classical3}
+\caption{Example of resolution of a QP}
+\end{figure}
+
+ Sometimes, the gradient of Lagrangian function could increase:
+ \begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{monter3}
+\caption{Example of resolution of a QP}
+\end{figure}
 
 \section*{Reminder of Differential calculus}
 

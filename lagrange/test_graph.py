@@ -181,80 +181,81 @@ def augmented_lagrange_equality(f,
         lamb = lamb - nu * r
         nu, residual_tolerance = update(nu, r ,residual_tolerance)
 
-if __name__ == '__main__':
-    import osqp
-    from scipy.sparse import csc_matrix
+# if __name__ == '__main__':
+import osqp
+from scipy.sparse import csc_matrix
 
-    N = 100 #dimension of variable
-    M = 50  #contraints number
+N = 100 #dimension of variable
+M = 50  #contraints number
 
-    def random_SPD_matrix(n):
-        return n*2 * (np.random.rand(n) + 1) * np.eye(n)
+def random_SPD_matrix(n):
+    return n*2 * (np.random.rand(n) + 1) * np.eye(n)
 
-    def LA_QP_solver(P=None, q=None, A=None, b = None, x_star = None, lamb_star = None):
-        """
-        A : m * n array
-        b : m array
-        """
-        def f(x):
-            return 1/2 * x @ P @ x + q @ x
+def LA_QP_solver(P=None, q=None, A=None, b = None, x_star = None, lamb_star = None):
+    """
+    A : m * n array
+    b : m array
+    """
+    def f(x):
+        return 1/2 * x @ P @ x + q @ x
 
-        def Diffs_f(x):
-            return P @ x + q, P
+    def Diffs_f(x):
+        return P @ x + q, P
 
-        def c(i, x):
-            return A[i] @ x - b[i]
+    def c(i, x):
+        return A[i] @ x - b[i]
 
-        H_zeros = np.zeros((N, N))
+    H_zeros = np.zeros((N, N))
 
-        def Diffs_c(i, x):
-            return A[i], H_zeros
+    def Diffs_c(i, x):
+        return A[i], H_zeros
 
-        C =       [partial(c, i) for i in range(M)]
-        Diffs_C = [partial(Diffs_c, i) for i in range(M)]
+    C =       [partial(c, i) for i in range(M)]
+    Diffs_C = [partial(Diffs_c, i) for i in range(M)]
 
-        x_0 = np.zeros(N)
-        lamb_0 = np.ones(M)
-        return augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, x_0, lamb_0, 
-                                           x_star = x_star, lamb_star = lamb_star)
+    x_0 = np.zeros(N)
+    lamb_0 = np.ones(M)
+    return augmented_lagrange_equality(f, C, Diffs_f, Diffs_C, x_0, lamb_0, 
+                                        x_star = x_star, lamb_star = lamb_star)
 
-    def comparaison(K: "iterations"):
-        T_LA = []
-        T_osqp = []
+def comparaison(K: "iterations"):
+    T_LA = []
+    T_osqp = []
 
-        for _ in range(K):
-            P = random_SPD_matrix(N)
-            q = N * np.random.rand(N)
+    for _ in range(K):
+        P = random_SPD_matrix(N)
+        q = N * np.random.rand(N)
 
-            A = M * np.random.rand(M, N)
-            b = M * np.random.rand(M)
+        A = M * np.random.rand(M, N)
+        b = M * np.random.rand(M)
 
 
-            P_csc = csc_matrix(P)
-            A_csc = csc_matrix(A)
-            l = b; u = b
+        P_csc = csc_matrix(P)
+        A_csc = csc_matrix(A)
+        l = b; u = b
 
-            m = osqp.OSQP()
-            m.setup(P=P_csc, q=q, A=A_csc, l=l, u=u)
-            results = m.solve()
+        m = osqp.OSQP()
+        m.setup(P=P_csc, q=q, A=A_csc, l=l, u=u)
+        results = m.solve()
 
-            T_osqp.append(results.info.run_time)
-            # print("by OSQP, x* =", results.x, "run time {}".format(results.info.run_time))
+        T_osqp.append(results.info.run_time)
+        # print("by OSQP, x* =", results.x, "run time {}".format(results.info.run_time))
 
-            x_star = results.x
-            lamb_star = results.y
+        x_star = results.x
+        lamb_star = results.y
 
-            t1 = time()
-            optimum = LA_QP_solver(P, q, A, b, x_star = x_star, lamb_star = lamb_star)
-            t2 = time()
-            t_LA = t2 - t1
-            T_LA.append(t_LA)
 
-            print("by LA, x* =", optimum, " time {}".format(t_LA))
+        t1 = time()
+        optimum = LA_QP_solver(P, q, A, b, x_star = x_star, lamb_star = lamb_star)
+        t2 = time()
+        t_LA = t2 - t1
+        T_LA.append(t_LA)
 
-        avg_LA = sum(T_LA)/K
-        avg_osqp = sum(T_osqp)/K
+        print("by LA, x* =", optimum, " time {}".format(t_LA))
 
-        print("AVERAGE TIME by {} iterations:\n LA: {}, OSQP: {}".format(K, avg_LA, avg_osqp))
+    avg_LA = sum(T_LA)/K
+    avg_osqp = sum(T_osqp)/K
 
-    comparaison(1)
+    print("AVERAGE TIME by {} iterations:\n LA: {}, OSQP: {}".format(K, avg_LA, avg_osqp))
+
+comparaison(1)
