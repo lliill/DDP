@@ -5,9 +5,9 @@ import math
 from functools import partial
 from time import time
 from scipy import linalg
-import matplotlib.pyplot as plt
 
-MAX_PENALIZATION = 1e12
+
+MAX_PENALIZATION = 1e7
 
 def newton_method(
         f: "convex function to be minimized",
@@ -19,6 +19,7 @@ def newton_method(
         a: "line search parameter, affinity of approximation" = 0.25,
         b: "line search parameter, decreasing rate" = 0.5) -> "x*":
     """Newton's method in the page 487"""
+    
     def line_search(f,
                     x: "starting point in the feasible domain of f",
                     Delta_x: "descent direction",
@@ -64,9 +65,9 @@ def augmented_lagrange_equality(f,
                                 nu_0 : "penalization, type number" = 2, 
                                 # tau_0: "residual tolearnce, type number" = 1, 
                                 e: "newton tolearnce, type number" = 1e-8,  
-                                stopping_tolerance: "for ||grad L|| and ||c(x)||" = {"grad_L" :1e-6,
-                                                            'constraints_residuals': 1e-6},                                                 
-                                max_iter = 100,
+                                stopping_tolerance: "for ||grad L|| and ||c(x)||" = {"grad_L" :1e-8,
+                                                            'constraints_residuals': 1e-8},                                                 
+                                max_iter = 200,
                                 x_star = None,
                                 lamb_star = None
                                 ) -> "x*":
@@ -111,11 +112,11 @@ def augmented_lagrange_equality(f,
         if norm_inf(constraints_residuals) < residual_tolerance:
             return penalization, residual_tolerance/penalization**0.9
         else:
-            return 10 * penalization, 1/penalization**0.1
+            return np.e * penalization, 1/penalization**0.1
 
     lamb = np.array(lamb_0) #important to be np array
     # tau = tau_0
-    residual_tolerance = 1
+    residual_tolerance = 1e-3
     nu = nu_0
     x = x_0
 
@@ -125,6 +126,7 @@ def augmented_lagrange_equality(f,
     Dual_Distances_to_optimum = []
     Nu = []
     Grad_f_norm = []
+    Residuals_tolerances = []
 
     for k in range(max_iter):
         # print(k)
@@ -134,6 +136,11 @@ def augmented_lagrange_equality(f,
         
         grad_L = D["gradient_f"] - lamb @ D["constraints_Jacobian"]
         r = D["constraints_residuals"]
+        # Grad_c_x, Hess_c_x = zip(*(diffs_ci(x) for diffs_ci in Diffs_c))
+        # J = np.array(Grad_c_x)
+
+        # grad_L = diffs_f(x)[0] - lamb @ J
+        # r = np.array([ci(x) for ci in C])
 
         grad_L_norm = norm_inf(grad_L)
         residual_norm = norm_inf(r)
@@ -143,7 +150,8 @@ def augmented_lagrange_equality(f,
         Residuals_Norm.append(residual_norm)
         Grad_L_Norm.append(grad_L_norm)
         Nu.append(nu)
-        Grad_f_norm.append(norm_inf(D["gradient_f"]))
+        # Grad_f_norm.append(norm_inf(D["gradient_f"]))
+        Residuals_tolerances.append(residual_tolerance)
 
         if residual_norm <= residual_tolerance:
             if KKT_test(grad_L_norm, residual_norm):
@@ -160,26 +168,57 @@ def augmented_lagrange_equality(f,
                 ax3.title.set_text("||gradient Lagrangian||_inf")
                 ax4.title.set_text("||lambda - lambda*||_inf")
                 ax5.title.set_text("nu")
-                ax6.title.set_text("||gradient_f||_inf")
+                ax6.title.set_text("Residuals_tolerances")
 
                 ax1.plot(Distances_to_optimum)
                 ax2.plot(Residuals_Norm)
                 ax3.plot(Grad_L_Norm)
                 ax4.plot(Dual_Distances_to_optimum)
                 ax5.plot(Nu)
-                ax6.plot(Grad_f_norm)
+                ax6.plot(Residuals_tolerances)
 
                 ax1.set_yscale('log')
                 ax2.set_yscale('log')
                 ax3.set_yscale('log')
-                # ax4.set_yscale('log')
+                ax4.set_yscale('log')
                 # ax5.set_yscale('log')
-                # ax6.set_yscale('log')
+                ax6.set_yscale('log')
                 plt.show()
                 return x
 
         lamb = lamb - nu * r
         nu, residual_tolerance = update(nu, r ,residual_tolerance)
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(231)
+    ax2 = fig.add_subplot(232)
+    ax3 = fig.add_subplot(233)
+    ax4 = fig.add_subplot(234)
+    ax5 = fig.add_subplot(235)
+    ax6 = fig.add_subplot(236)
+
+    ax1.title.set_text("||x - x*||")
+    ax2.title.set_text("||c(x)||_inf")
+    ax3.title.set_text("||gradient Lagrangian||_inf")
+    ax4.title.set_text("||lambda - lambda*||_inf")
+    ax5.title.set_text("nu")
+    ax6.title.set_text("Residuals_tolerances")
+
+    ax1.plot(Distances_to_optimum)
+    ax2.plot(Residuals_Norm)
+    ax3.plot(Grad_L_Norm)
+    ax4.plot(Dual_Distances_to_optimum)
+    ax5.plot(Nu)
+    ax6.plot(Residuals_tolerances)
+
+    ax1.set_yscale('log')
+    ax2.set_yscale('log')
+    ax3.set_yscale('log')
+    ax4.set_yscale('log')
+    # ax5.set_yscale('log')
+    ax6.set_yscale('log')
+    plt.show()
+    return x
 
 # if __name__ == '__main__':
 import osqp
@@ -258,4 +297,4 @@ def comparaison(K: "iterations"):
 
     print("AVERAGE TIME by {} iterations:\n LA: {}, OSQP: {}".format(K, avg_LA, avg_osqp))
 
-comparaison(1)
+# comparaison(1)
