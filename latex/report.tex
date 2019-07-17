@@ -35,9 +35,8 @@
 \author{Mengda Li }
 
 %\usepackage{biblatex}
-
 %\addbibresource{report.bib}
-%\bibliography{report}
+%%\bibliography{report}
 \begin{document}
 
 \maketitle
@@ -45,6 +44,7 @@
 
 % \section{Introduction}
 \chapter*{Introduction}
+
 My internship is co-supervised by Justin Carpentier and Nicolas Mansard in the Willow research group at INRIA Paris in France. 
 
 Justin Carpentier is a postdoctoral researcher at the interface between Robotics, Machine Learning and Control in Willow. His research is devoted to the embedding of Optimal Control theory inside the formalism of Machine Learning, with Humanoid Robotics as a main target application.  
@@ -355,7 +355,7 @@ where the unknown is underlined.
 %\bullet \quad Q_u = L_u + \underline{V'_x}   \ F_u \quad \footnotemark
 %\end{equation}
 And the hessian which can be ignored in iLQR but not in DDP 
-\footnote{\cite{TassaIROS12}} 
+\cite{TassaIROS12}
 %\autocite{TassaIROS12}
 \begin{multline}
      D^2 Q_i (x_i ,u_i) (e_k) (e_l) = D^2 L (x_i ,u_i) (e_k) (e_l) + \\
@@ -729,7 +729,8 @@ D(f\cdot g)(x)(h) = f(x) \circ Dg(x)(h) + Df(x)(h) \circ g(x)
 Books remain silent about this theorem. Either not mentioned or in a false expression.
 \end{remark}
 
-%\bibliography{report}
+\bibliographystyle{unsrt}
+\bibliography{report}{}
 %\printbibliography
 
 \end{document}
