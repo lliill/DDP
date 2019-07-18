@@ -11,6 +11,7 @@
 \usepackage{hyperref}
 %\usepackage{cite}
 \usepackage{tcolorbox}
+\usepackage{accents}
 
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
@@ -32,8 +33,16 @@
 \large Internship report
 }
 
-\author{Mengda Li }
+\author{Mengda Li\\
+\small M1 student in Computer Science at ENS Paris-Saclay in 2018-2019 \\
+\small Intern at INRIA Paris from 04/2019 to 08/2019\\
+\\
+\normalsize supervised by\\
+\\
+Justin Carpentier, Nicolas Mansard
+}
 
+\date{}
 %\usepackage{biblatex}
 %\addbibresource{report.bib}
 %%\bibliography{report}
@@ -43,7 +52,7 @@
 \tableofcontents
 
 % \section{Introduction}
-\chapter*{Introduction}
+\chapter*{Introduction - Summary}
 
 My internship is co-supervised by Justin Carpentier and Nicolas Mansard in the Willow research group at INRIA Paris in France. 
 
@@ -56,7 +65,25 @@ Their research is concerned with representational issues in visual object recogn
 
 GEPETTO is a robotics research team in the Laboratoire d'analyse et d'architecture des systèmes of Centre National de la Recherche Scientifique. They aim at analyzing and generating the motion of anthropomorphic systems. 
 
-The goal of my internship is to embed the augmented Lagrangian method to DDP to solve robotics optimal control problem with constraints. 
+\subsubsection{General Context}
+The goal of my internship is to embed the \emph{augmented Lagrangian method} to \emph{Differential Dynamic Programming (DDP)} to solve robotics \emph{optimal control} problem with constraints. 
+
+DDP is an optimal control algorithm of the trajectory optimization class. The algorithm was introduced in 1966 by Mayne and subsequently analysed in Jacobson and Mayne's eponymous book \cite{jacobson1970}. The \cite{TassaIROS12} could be served as a brief introduction to the algorithm.
+
+Augmented Lagrangian methods are a certain class of algorithms for solving \emph{constrained optimization problems}. The chapter 17 of the book \cite{NoceWrig06} could be a good introduction. 
+
+\subsubsection{Studied Problems}
+The DDP is used in robotics for finding an optimal trajectory from some point to some other point. In practice we often need to add constraint(s) to the desired trajectory. The \cite{TassaICRA14} discussed how to add \emph{box-constraint} \footnote{The simplest inequality constraint over the control sequence $u$: $\underaccent{\bar}{b} \le u \le \bar{b}$ where the $\underaccent{\bar}{b}$ is the lower bound and the $\bar{b}$ is the upper bound.} on the \emph{control variable}. But adding box constraints on the \emph{state variable} remains a open problem. The motivation is to implement a framework on DDP to include more general constraints which are useful in robotics.
+
+\subsubsection{Proposed Contributions}
+
+\subsubsection{Arguments in term of validity}
+
+
+\subsubsection{Review and Prospects}
+
+
+
 \chapter{Definitions of the problem}
 We want to find a path from some point $x_0$ to some point $p$ which doesn't cost too much.
 
@@ -652,7 +679,10 @@ The gaps will not be changed if the optimization variable is $(\delta_x, \delta_
 %D^2f (x,u)= 0 
 %\end{equation}
 
-\chapter{Augmented Lagrangian DDP}
+\chapter{Augmented Lagrangian on DDP}
+\section{Augmented Lagrangian method}
+\emph{Augmented Lagrangian methods} are a certain class of algorithms for solving constrained optimization problems. They have similarities to \emph{penalty methods} in that they replace a constrained optimization problem by a \textbf{series of unconstrained problems} and add a penalty term to the objective; the difference is that the augmented Lagrangian method adds yet another term, designed to mimic a \emph{Lagrange multiplier}. 
+\section{Augmented DDP}
 By the method augmented Lagrangian, for solving the problem \ref{eq:OCP equality constraints} with equality constraints, we solve sequentially \ref{eq:OCP augmented Lagrangian} by updating Lagrangian multiplier $\lambda$ and penalization parameter $\mu$ until the KKT conditions for the original problem are satisfied:
 \begin{equation}
 \label{eq:OCP equality constraints}

@@ -1,21 +1,28 @@
-\contentsline {chapter}{\numberline {1}Definitions of the problem}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Mathematical formulations}{3}{section.1.1}
-\contentsline {subsubsection}{Goal 1: Controllability}{3}{section*.3}
-\contentsline {subsubsection}{Goal 2: Optimal Control}{3}{section*.4}
-\contentsline {subsection}{\numberline {1.1.1}Transformation of the problem}{4}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Discretization of a continuous problem}{4}{subsection.1.1.2}
-\contentsline {section}{\numberline {1.2}Dynamic Programming}{4}{section.1.2}
-\contentsline {chapter}{\numberline {2}Differential Dynamic Programming}{6}{chapter.2}
-\contentsline {section}{\numberline {2.1}Decomposition to sub-problems}{6}{section.2.1}
-\contentsline {subsubsection}{Goal in the general form}{6}{section*.5}
-\contentsline {subsubsection}{Goals in the DDP form}{6}{section*.6}
-\contentsline {section}{\numberline {2.2}Linear Quadratic Regulator (LQR)}{7}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Backward pass: Optimal step, Q and its derivatives}{7}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Forward pass: V and its derivatives}{8}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Roll-out}{9}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}Feasible and non-feasible trajectories}{9}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Non-feasible start in LQR}{9}{subsection.2.3.1}
-\contentsline {section}{\numberline {2.4}Algorithms}{10}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Sequential LQR Programming}{10}{subsection.2.4.1}
-\contentsline {subsubsection}{Approximative LQR problem}{11}{section*.7}
-\contentsline {chapter}{\numberline {3}Augmented Lagrangian DDP}{12}{chapter.3}
+\contentsline {subsubsection}{General Context}{2}{section*.3}
+\contentsline {subsubsection}{Studied Problems}{2}{section*.4}
+\contentsline {subsubsection}{Proposed Contributions}{3}{section*.5}
+\contentsline {subsubsection}{Arguments in term of validity}{3}{section*.6}
+\contentsline {subsubsection}{Review and Prospects}{3}{section*.7}
+\contentsline {chapter}{\numberline {1}Definitions of the problem}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}Mathematical formulations}{4}{section.1.1}
+\contentsline {subsubsection}{Goal 1: Controllability}{4}{section*.8}
+\contentsline {subsubsection}{Goal 2: Optimal Control}{4}{section*.9}
+\contentsline {subsection}{\numberline {1.1.1}Transformation of the problem}{5}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Discretization of a continuous problem}{5}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Dynamic Programming}{5}{section.1.2}
+\contentsline {chapter}{\numberline {2}Differential Dynamic Programming}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Decomposition to sub-problems}{7}{section.2.1}
+\contentsline {subsubsection}{Goal in the general form}{7}{section*.10}
+\contentsline {subsubsection}{Goals in the DDP form}{7}{section*.11}
+\contentsline {section}{\numberline {2.2}Linear Quadratic Regulator (LQR)}{8}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Backward pass: Optimal step, Q and its derivatives}{8}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Forward pass: V and its derivatives}{9}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Roll-out}{10}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Feasible and non-feasible trajectories}{10}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Non-feasible start in LQR}{10}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Algorithms}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Sequential LQR Programming}{11}{subsection.2.4.1}
+\contentsline {subsubsection}{Approximative LQR problem}{12}{section*.12}
+\contentsline {chapter}{\numberline {3}Augmented Lagrangian on DDP}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Augmented Lagrangian method}{13}{section.3.1}
+\contentsline {section}{\numberline {3.2}Augmented DDP}{13}{section.3.2}

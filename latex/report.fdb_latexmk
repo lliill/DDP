@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex report"] 1563376561 "report.aux" "report.bbl" "report" 1563376562
+["bibtex report"] 1563465814 "report.aux" "report.bbl" "report" 1563467502
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "report.aux" 1563376542 4238 3d0da78e4739daf72070e82d1620f8d2 ""
+  "report.aux" 1563467483 5017 d2d625b980ceb8dfd1fd9e2e44563bb8 ""
   "report.bcf" 1563375901 90325 7840d62bf86ebda2c89994184f8613dc ""
-  "report.bib" 1563376243 410 05f69d4665e4c0440109ab5eb1b2f09a ""
+  "report.bib" 1563463591 1323 821961f1b9938658d29563c8ae4e419a ""
   (generated)
   "report.bbl"
   "report.blg"
-["pdflatex"] 1563376561 "report.tex" "report.pdf" "report" 1563376562
+["pdflatex"] 1563467501 "report.tex" "report.pdf" "report" 1563467502
   "/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1284331290 1458 43ab4710dc82f3edeabecd0d099626b2 ""
   "/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty" 1303254447 8237 52810bdb4db2270e717422560a104aea ""
@@ -77,6 +77,7 @@
   "/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo" 1454284088 9179 4cd3c5f593e63512893b8ac0123f1bd7 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu" 1454284088 10900 d4e94223e6330199a3b8e8abe87fe6e1 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def" 1454284088 7786 ea3c60942da10fcdcdb0bcbd1671de4e ""
+  "/usr/share/texlive/texmf-dist/tex/latex/bezos/accents.sty" 1287181805 6919 4d8e953be6e2c3cc4cc3d9942a582fd2 ""
   "/usr/share/texlive/texmf-dist/tex/latex/environ/environ.sty" 1399239813 4378 f429f0da968c278653359293040a8f52 ""
   "/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1438639395 41547 7860e623236f5f726a4099bbb7dd89fb ""
   "/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty" 1284422013 40502 e003406220954b0716679d7928aedd8a ""
@@ -117,14 +118,14 @@
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1169481954 55224 a43bab84e0ac5e6efcaf9a98bde73a94 ""
   "images/classical3.png" 1561731210 68866 224b919dc54162af64d3fa9785b8972a ""
   "images/monter3.png" 1561731251 72360 031efad919b479ab1bcbd0d98744746b ""
-  "report.aux" 1563376542 4238 3d0da78e4739daf72070e82d1620f8d2 ""
-  "report.bbl" 1563376541 356 9fa1ce1d9be0ba27c81ac4a214ef2a07 "bibtex report"
-  "report.out" 1563376542 1207 d1f9d1203638d511490a5d727b25328b ""
-  "report.tex" 1563376540 33354 fa71b104938b0146aa96e364e7d3407d ""
-  "report.toc" 1563376542 1803 c55cfa3ed0f058b908128f751d45ef32 ""
+  "report.aux" 1563467483 5017 d2d625b980ceb8dfd1fd9e2e44563bb8 ""
+  "report.bbl" 1563465795 940 6cd1a6507c9e20a0472590a41da091fe "bibtex report"
+  "report.out" 1563467483 1344 61ea5792034974cd1192b9b0fca38354 ""
+  "report.tex" 1563467482 35491 135fe4badb30d81f6f8f885c7ac2ab84 ""
+  "report.toc" 1563467483 2309 7684cecac3f1f1147f073dc699f50f36 ""
   (generated)
   "report.aux"
+  "report.out"
   "report.toc"
   "report.log"
   "report.pdf"
-  "report.out"

@@ -1,10 +1,27 @@
 \begin{thebibliography}{1}
 
+\bibitem{jacobson1970}
+D.H. Jacobson and D.Q. Mayne.
+\newblock {\em Differential Dynamic Programming}.
+\newblock Modern analytic and computational methods in science and mathematics.
+  American Elsevier Publishing Company, 1970.
+
 \bibitem{TassaIROS12}
 Yuval Tassa, Tom Erez, and Emanuel Todorov.
 \newblock Synthesis and stabilization of complex behaviors through online
   trajectory optimization.
 \newblock {\em Proceedings of the 2012 IEEE/RSJ International Conference on
   Intelligent Robots and Systems}, pages 4906--4913, 10 2012.
+
+\bibitem{NoceWrig06}
+Jorge Nocedal and Stephen~J. Wright.
+\newblock {\em Numerical Optimization}.
+\newblock Springer, 2006.
+
+\bibitem{TassaICRA14}
+Yuval Tassa, Nicolas Mansard, and Emo Todorov.
+\newblock Control-limited differential dynamic programming.
+\newblock {\em Proceedings - IEEE International Conference on Robotics and
+  Automation}, 05 2014.
 
 \end{thebibliography}

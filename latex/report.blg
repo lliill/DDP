@@ -3,44 +3,50 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: unsrt.bst
 Database file #1: report.bib
-You've used 1 entry,
+You're missing a field name---line 35 of file report.bib
+ :   
+ :   %chapter = {17},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You've used 4 entries,
             1791 wiz_defined-function locations,
-            452 strings with 3772 characters,
-and the built_in function-call counts, 394 in all, are:
-= -- 38
-> -- 11
+            471 strings with 4239 characters,
+and the built_in function-call counts, 896 in all, are:
+= -- 80
+> -- 38
 < -- 1
-+ -- 4
-- -- 3
-* -- 24
-:= -- 57
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 1
++ -- 14
+- -- 10
+* -- 45
+:= -- 142
+add.period$ -- 13
+call.type$ -- 4
+change.case$ -- 2
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 20
-empty$ -- 33
-format.name$ -- 3
-if$ -- 94
+cite$ -- 4
+duplicate$ -- 48
+empty$ -- 85
+format.name$ -- 10
+if$ -- 210
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 1
-pop$ -- 3
+int.to.str$ -- 4
+missing$ -- 6
+newline$ -- 23
+num.names$ -- 4
+pop$ -- 18
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 18
+skip$ -- 27
 stack$ -- 0
 substring$ -- 36
-swap$ -- 12
+swap$ -- 15
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 3
-width$ -- 2
-write$ -- 13
+while$ -- 6
+width$ -- 5
+write$ -- 44
+(There was 1 error message)
