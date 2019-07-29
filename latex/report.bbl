@@ -24,4 +24,9 @@ Yuval Tassa, Nicolas Mansard, and Emo Todorov.
 \newblock {\em Proceedings - IEEE International Conference on Robotics and
   Automation}, 05 2014.
 
+\bibitem{crocoddyl}
+Carlos Mastalli, Rohan Budhiraja, Nicolas Mansard, and Justin Carpentier.
+\newblock {\em Contact RObot COntrol by Differential DYnamic programming
+  Library}.
+
 \end{thebibliography}
