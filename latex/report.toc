@@ -3,11 +3,10 @@
 \contentsline {subsubsection}{Proposed Contributions}{3}{section*.5}
 \contentsline {subsubsection}{Arguments in term of validity}{3}{section*.6}
 \contentsline {subsubsection}{Review and Prospects}{3}{section*.7}
-\contentsline {subsubsection}{My own contributions}{3}{section*.8}
 \contentsline {chapter}{\numberline {1}Definitions of the problem}{4}{chapter.1}
 \contentsline {section}{\numberline {1.1}Mathematical formulations}{4}{section.1.1}
-\contentsline {subsubsection}{Goal 1: Controllability}{4}{section*.9}
-\contentsline {subsubsection}{Goal 2: Optimal Control}{4}{section*.10}
+\contentsline {subsubsection}{Goal 1: Controllability}{4}{section*.8}
+\contentsline {subsubsection}{Goal 2: Optimal Control}{4}{section*.9}
 \contentsline {subsection}{\numberline {1.1.1}Transformation of the problem}{5}{subsection.1.1.1}
 \contentsline {subsection}{\numberline {1.1.2}Discretization of a continuous problem}{5}{subsection.1.1.2}
 \contentsline {section}{\numberline {1.2}Dynamic Programming}{5}{section.1.2}
