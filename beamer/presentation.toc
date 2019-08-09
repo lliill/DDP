@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Optimal Control Problem}{4}{0}{1}
+\beamer@subsubsectionintoc {1}{0}{1}{Goal 1: Controllability}{5}{0}{1}
+\beamer@subsubsectionintoc {1}{0}{2}{Goal 2: Optimal Control}{5}{0}{1}
+\beamer@subsectionintoc {1}{1}{Transformation of the problem}{6}{0}{1}
+\beamer@subsubsectionintoc {1}{1}{1}{Adding penalty}{6}{0}{1}
+\beamer@subsubsectionintoc {1}{1}{2}{Discretization}{6}{0}{1}
+\beamer@sectionintoc {2}{Differential Dynamic Programming}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Dynamic Programming}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Linear Quadratic Regulator (LQR)}{9}{0}{2}

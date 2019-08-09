@@ -1,0 +1,147 @@
+\documentclass{beamer}
+
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\usetheme{metropolis}  
+
+\title{Optimal Control and Optimization in Robotics}
+
+\author{Mengda Li}
+\institute{ENS Paris-Saclay}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+\begin{frame}{Introduction}
+%\section*{Introduction}
+My internship is co-supervised by Justin Carpentier (Willow, Inria Paris) and Nicolas Mansard (Gepetto, LAAS/CNRS) in the Willow research group at INRIA Paris in France. 
+
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{figure}
+\includegraphics[scale=0.35]{images/Justin_Carpentier.jpg}
+\caption{Justin Carpentier}
+\end{figure}
+\column{0.5\textwidth}
+\begin{figure}
+\includegraphics[scale=0.1]{images/Nicolas_Mansard.jpg}
+\caption{Nicolas Mansard}
+\end{figure}
+\end{columns}
+
+
+
+
+
+\end{frame}
+
+\begin{frame}{Outline}
+
+\tableofcontents
+\end{frame}
+
+\section{Optimal Control Problem}
+
+  \begin{frame}{Optimal Control	Problem}
+    \subsubsection{Goal 1: Controllability}
+
+Goal 1: Controllability
+	\begin{equation}
+	\begin{aligned}
+	& {\text{find}}
+	& & u \\
+	& \text{subject to}
+	& & x(0) = x_0, \; x(T) = p, \\
+	&&& \dot{x} (t) = f(x(t), u(t)).
+	\end{aligned}
+	\end{equation}
+	
+	\subsubsection{Goal 2: Optimal Control}
+
+Goal 2: Optimal Control	 
+	
+	\begin{equation}
+	\begin{aligned}
+	& \underset{u}{\text{minimize}}
+	& & \int_0^T l(x(t),u(t)) dt \\
+	& \text{subject to}
+	& & x(0) = x_0, \; x(T) = p, \\
+	&&& \dot{x} (t) = f(x(t), u(t)).
+	\end{aligned}
+	\end{equation}
+	
+  \end{frame}
+  
+  \begin{frame}{Transformation of the problem}
+  \subsection{Transformation of the problem}
+ \subsubsection{Adding penalty}
+Adding penalty to the terminal lost:
+\begin{equation}
+\begin{aligned}
+& \underset{u}{\text{minimize}}
+& & \int_{[0,T[} l(x(t),u(t)) dt + l_T(x(T)) \\
+& \text{subject to}
+& & x(0) = x_0,  \\
+&&& \dot{x} (t) = f(x(t), u(t)).
+\end{aligned}
+\end{equation}
+
+\subsubsection{Discretization}
+Discretization of functions and variables:
+\begin{equation}
+\label{eq}
+\begin{aligned}
+&\underset{x \in \ell_{N+1}^\infty, u \in \ell_{N}^\infty}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{N-1} L(x_i, u_i) + L_T(x_N) \\
+&\text{subject to}       &x(0)      &= x_0,  \\ %or \epsilon_{0} 
+&							      &x_{i+1}  &= F(x_i, u_i) \ \forall i \in [0 .. N-1]
+\end{aligned}
+\end{equation}
+  \end{frame}
+  
+\section{Differential Dynamic Programming}
+\subsection{Dynamic Programming}
+\begin{frame}{Dynamic Programming}
+Optimize one by one:
+\begin{equation}
+\begin{split}
+\min_{U} J(U) &= \min_{u_0} \min_{u_1} ... \min_{u_{N-1}} J(U)
+\end{split}
+\end{equation}
+Definitions of Value Function and Q-functions:
+\begin{equation}
+\begin{split}
+\label{vl}
+V_i(x_i ) &= \min_{u_i}L(x_i,u_i) + V_{i+1}(x_{i+1}) \\
+		V_N(x_N) &= L_T(x_N)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+Q_i(x_i,u_i) &= L(x_i,u_i) + V_{i+1}(x_{i+1}) \\
+				&= L(x_i,u_i) + V_{i+1}(f(x_i,u_i)) \\
+				&= L(x_i,u_i) + \min_{u_{i+1}} Q_{i+1}(f(x_i,u_i), u_{i+1}),\ i \le N-2
+\end{split}
+\end{equation}
+
+\begin{equation}
+V_i(x_i) = \min_{u_i} Q_i(x_i, u_i) 
+\end{equation}
+\end{frame}
+
+\subsection{Linear Quadratic Regulator (LQR)}
+
+\begin{frame}{Linear Quadratic Regulator (LQR)}
+The LQR is an algorithm that solves the problem \ref{eq} in one iteration 
+in case $L, L_T$ are quadratic and $F$ is linear.
+\end{frame}
+
+
+\end{document}
