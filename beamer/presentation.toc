@@ -1,10 +1,12 @@
 \beamer@endinputifotherversion {3.36pt}
-\beamer@sectionintoc {1}{Optimal Control Problem}{4}{0}{1}
-\beamer@subsubsectionintoc {1}{0}{1}{Goal 1: Controllability}{5}{0}{1}
-\beamer@subsubsectionintoc {1}{0}{2}{Goal 2: Optimal Control}{5}{0}{1}
-\beamer@subsectionintoc {1}{1}{Transformation of the problem}{6}{0}{1}
-\beamer@subsubsectionintoc {1}{1}{1}{Adding penalty}{6}{0}{1}
-\beamer@subsubsectionintoc {1}{1}{2}{Discretization}{6}{0}{1}
-\beamer@sectionintoc {2}{Differential Dynamic Programming}{7}{0}{2}
-\beamer@subsectionintoc {2}{1}{Dynamic Programming}{8}{0}{2}
-\beamer@subsectionintoc {2}{2}{Linear Quadratic Regulator (LQR)}{9}{0}{2}
+\beamer@sectionintoc {1}{Optimal Control Problem}{7}{0}{1}
+\beamer@subsubsectionintoc {1}{0}{1}{Goal 1: Controllability}{8}{0}{1}
+\beamer@subsubsectionintoc {1}{0}{2}{Goal 2: Optimal Control}{8}{0}{1}
+\beamer@subsectionintoc {1}{1}{Transformation of the problem}{9}{0}{1}
+\beamer@subsubsectionintoc {1}{1}{1}{Adding penalty}{9}{0}{1}
+\beamer@subsubsectionintoc {1}{1}{2}{Discretization}{9}{0}{1}
+\beamer@sectionintoc {2}{Differential Dynamic Programming}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{Dynamic Programming}{11}{0}{2}
+\beamer@subsectionintoc {2}{2}{Linear Quadratic Regulator (LQR)}{12}{0}{2}
+\beamer@subsubsectionintoc {2}{2}{1}{Backward and Forward pass}{13}{0}{2}
+\beamer@subsubsectionintoc {2}{2}{2}{Roll-out}{14}{0}{2}

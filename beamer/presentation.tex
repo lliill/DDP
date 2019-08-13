@@ -1,5 +1,7 @@
 \documentclass{beamer}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{mathtools}
 \usepackage{hyperref}
 
@@ -36,11 +38,57 @@ My internship is co-supervised by Justin Carpentier (Willow, Inria Paris) and Ni
 \end{figure}
 \end{columns}
 
+\end{frame}
+
+\begin{frame}{Hosting institution}
+
+\begin{figure}
+\includegraphics[scale=0.35]{images/Inr_logo_fr_rouge.png}
+%\caption{}
+\end{figure}
+L'\textbf{Institut national de recherche en informatique et en automatique (Inria)} est un établissement public à caractère scientifique et technologique français spécialisé en mathématiques et informatique, placé sous la double tutelle du ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation et du ministère de l'Économie et des Finances créé le 3 janvier 1967 dans le cadre du « plan calcul ».
+
 
 
 
 
 \end{frame}
+
+
+\begin{frame}{Research teams}
+
+\begin{figure}
+\includegraphics[scale=0.3]{images/WILLOW_Research.png}
+%\caption{}
+\end{figure}
+
+\textbf{WILLOW} is based in the Laboratoire d'Informatique de l'École Normale Superiéure (CNRS/ENS/INRIA UMR 8548) and is a joint research team between INRIA Rocquencourt, École Normale Supérieure de Paris and Centre National de la Recherche Scientifique. 
+
+Their research is concerned with representational issues in visual object recognition and scene understanding. 
+
+
+
+\end{frame}
+
+%\begin{frame}{Research teams II}
+%
+%
+%Gepetto, LAAS/CNRS:..
+%\end{frame}
+
+\begin{frame}{Motivations and Problems in a general context}
+
+I want my robot to move one thing somewhere and pass some point at some moment with a lowest cost.
+
+\bigskip
+
+\textbf{Optimization}: lowest cost
+
+\textbf{Control}: from some point to another point
+
+and \emph{Constraints}
+\end{frame}
+
 
 \begin{frame}{Outline}
 
@@ -139,8 +187,77 @@ V_i(x_i) = \min_{u_i} Q_i(x_i, u_i)
 \subsection{Linear Quadratic Regulator (LQR)}
 
 \begin{frame}{Linear Quadratic Regulator (LQR)}
-The LQR is an algorithm that solves the problem \ref{eq} in one iteration 
-in case $L, L_T$ are quadratic and $F$ is linear.
+The LQR is an algorithm that solves the problem \ref{eq} \emph{ in one iteration}
+in case $L, L_T$ are \textbf{quadratic} and $F$ is \textbf{linear}.
+
+\medskip
+
+Two phases in the algorithm: 
+\begin{itemize}
+\item \textbf{Backward and Forward pass}: 
+
+Compute $V_x, V_{xx}$ and $Q_u, Q_{uu}, Q_{ux}$ alternately
+
+\item \textbf{Roll-out}: 
+
+Compute $\delta_u^*$ by $V_x, V_{xx}$ and $Q_u, Q_{uu}, Q_{ux}$
+
+\end{itemize}
+
+%\textbf{Backward and Forward pass}: 
+%\begin{center}
+%Compute $V_x, V_{xx}$ and $Q_u, Q_{uu}, Q_{ux}$ alternately
+%\end{center} 
+
+\end{frame}
+
+\subsubsection{Backward and Forward pass}
+
+\begin{frame}{Backward and Forward pass}
+
+\textbf{Backward} pass: from the partial derivatives of $V_{i+1}$ back to the partial derivatives of $Q_i$
+\begin{equation}
+\label{QfromV}
+\begin{split}
+Q_u & = L_u + \underline{V'_x}   \ F_u \quad \footnotemark \\
+Q_{uu} &= L_{uu} + \underline{V'_x} \cdot F_{uu} + F_u^T \underline{V'_{xx}} F_u \\
+Q_{ux} &= L_{ux} + \underline{V'_x} \cdot F_{ux} + F_u^T \underline{V'_{xx}} F_x
+\end{split}
+\end{equation}
+
+\footnotetext{"$Q, V'$" mean "$Q_i, V_{i+1}$".}
+
+\textbf{Forward} pass: from the partial derivatives of $Q_i$ back to the partial derivatives of $V_i$
+\begin{equation}
+\label{VfromQ}
+\begin{aligned}
+V_x &= Q_x - Q_u Q_{uu}^{-1} Q_{ux} &=& Q_x + Q_u K \\
+V_{xx} &= Q_{xx} - Q_{xu} Q_{uu}^{-1} Q_{ux} &=& Q_{xx} + Q_{xu} K
+\end{aligned}
+\end{equation}
+
+\end{frame}
+
+
+\begin{frame}{Roll-out}
+\subsubsection{Roll-out}
+Roll-\textbf{out}: determine the new trajectory $x, u$ by computing the best control change $\delta_u$.
+
+\begin{equation}
+\begin{split}
+\delta_u^* (i) &:= \arg\min_{\delta_u(i)}Q_i(x_i + \delta_x(i), u_i + \delta_u(i) ) \\
+\delta_u^* &=  - Q_{uu}^{-1} (Q_u + Q_{ux} \delta_x) \quad \forall i \in [0 .. N-1]
+\end{split}
+\end{equation} 
+%The idea is that we suppose for all $i$, $u_{i+1} ... u_{N-1}$ are already optimal, then we optimize $u_i$.
+\begin{equation}
+\begin{split}
+u^* &:= u + \delta_u^*, \\
+x^*_0      &= x_0,  \\ %or \epsilon_{0} 
+x_{i+1}^*     &= F(x_i^*, u_i^*) \quad \forall i \in [0 .. N-1]
+\end{split}
+\end{equation}
+
 \end{frame}
 
 
