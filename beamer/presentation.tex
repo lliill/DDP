@@ -91,7 +91,6 @@ and \emph{Constraints}
 
 
 \begin{frame}{Outline}
-
 \tableofcontents
 \end{frame}
 
@@ -188,7 +187,7 @@ V_i(x_i) = \min_{u_i} Q_i(x_i, u_i)
 
 \begin{frame}{Linear Quadratic Regulator (LQR)}
 The LQR is an algorithm that solves the problem \ref{eq} \emph{ in one iteration}
-in case $L, L_T$ are \textbf{quadratic} and $F$ is \textbf{linear}.
+in case $L, L_T$ are \textbf{quadratic} and $F$ is \textbf{linear} (or quadratic). 
 
 \medskip
 
@@ -260,5 +259,8 @@ x_{i+1}^*     &= F(x_i^*, u_i^*) \quad \forall i \in [0 .. N-1]
 
 \end{frame}
 
+\begin{frame}	{Sequential Quadratic Programming (SQP)}
+What if the $F, L$ are not quadratic?
+\end{frame}
 
 \end{document}
