@@ -318,10 +318,10 @@ We will first pre-compute what we need to find each ``minimum'' of $Q_i$ (their 
 
 The raison why we first go from future to present is the convenience of computing of differentials to find the minimum. However, we cannot find them immediately in the future: we need to wait the time goes by to compute the minimum from present one by one.
 
-\begin{remark}	
-	We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear in one iteration. However, we will use the principle of \emph{Sequential Quadratic Programming} to make an approximation of the problem as an LQR to compute a descent direction and converge \footnote{there is some theoretical subtleties in the roll-out (DDP line search) phase. But there are theoretical convergence guarantees on classical line search. DDP line search strategies work in practice better and respect the equality constraint of dynamics} to a local minimum.
-%there are some proofs show that by doing backward pass and forward pass iteratively, it will converge to a local minimum of $J$.
-\end{remark}
+%\begin{remark}	
+%	We don't search the exact global minimum and we don't even get a local minimum by doing backward and forward pass if the functions $Q_i$ are not quadratic or linear in one iteration. However, we will use the principle of \emph{Sequential Quadratic Programming} to make an approximation of the problem as an LQR to compute a descent direction and converge \footnote{there is some theoretical subtleties in the roll-out (DDP line search) phase. But there are theoretical convergence guarantees on classical line search. DDP line search strategies work in practice better and respect the equality constraint of dynamics} to a local minimum.
+%%there are some proofs show that by doing backward pass and forward pass iteratively, it will converge to a local minimum of $J$.
+%\end{remark}
 \section{Linear Quadratic Regulator (LQR)}
 If $L, L_T$ are quadratic and $F$ is linear, then the DDP is a \emph{Linear Quadratic Regulator}. All $Q$ and $V$ are quadratic, so all $\approx$ will be $=$ in this section and we can resolve the problem in one iteration.
 
@@ -630,7 +630,12 @@ If the trajectory $(x, u)$ does not respect the linear dynamics constraint, ther
 \begin{equation}
 \forall i \in [1 \twodots N], \ \epsilon_i := x_i - \bar{F}_{i-1}(x_{i-1}, u_{i-1})
 \end{equation}
-The gaps will not be changed if the optimization variable is $(\delta_x, \delta_u)$ instead of $(x,u)$. By \ref{NFLQR}, 
+The gaps will not be changed if the optimization variable is $(\delta_x, \delta_u)$ instead of $(x,u)$. By \ref{NFLQR}, we obtain a new trajectory.
+
+\subsubsection{Sequential Quadratic Programming (SQP)}
+We use the principle of SQP to solve general non-linear problems. Now we have an efficient quadratic problem solver LQR. Sequentially, we approximate the $L, F$ quadratically (if it was expensive, we approximate $F$ linearly) by their Taylor expansion and solve the approximate problem by LQR, then we have a new initial guess trajectory $x, u$ and we repeat the same procedure over the new $x,u$ until the convergence test (KKT conditions) is satisfied.
+
+The chapter 18 of \cite{NoceWrig06} could be served as a tutorial for the SQP.
 %\subsection{Interior loop (LQR)}
 %If $Q, V \in \mathscr{C}^2 $, then we can proceed the inner DDP loop as a \emph{Linear Quadratic Regulator}: we linearize the dynamics function $f$ so that all $Q$ are quadratic to find minimum (Of course, all cost functions need to be quadratic which is usually the case). So all $\approx$ will be $=$ in this section.
 %In a linear or quadratic case (for $Q_i$), practical results show that by doing the procedure described below only for one time, the trajectory will converge. It is comprehensible because each $\delta_u^*(i)$ is indeed the best step of control variable and we indeed have a real minimum on each $Q_i(x_i, u_i)$. The approximative equality in \ref{Q approx} and \ref{V approx} is nor more approximative but exact. The theory guarantees that we have a global minimum of $J$ by doing only one time backward and forward pass.

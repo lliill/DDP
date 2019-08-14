@@ -1,3 +1,4 @@
+\beamer@endinputifotherversion {3.36pt}
 \beamer@sectionintoc {1}{Optimal Control Problem}{7}{0}{1}
 \beamer@subsubsectionintoc {1}{0}{1}{Goal 1: Controllability}{8}{0}{1}
 \beamer@subsubsectionintoc {1}{0}{2}{Goal 2: Optimal Control}{8}{0}{1}

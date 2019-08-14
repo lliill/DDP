@@ -260,7 +260,40 @@ x_{i+1}^*     &= F(x_i^*, u_i^*) \quad \forall i \in [0 .. N-1]
 \end{frame}
 
 \begin{frame}	{Sequential Quadratic Programming (SQP)}
-What if the $F, L$ are not quadratic?
+What if the $F, L$ are not quadratic? Use the Sequential Quadratic Programming to solve general non-linear problems.
+
+\begin{equation}
+\begin{aligned}
+&\underset{x}{\text{minimize}}       &f(x) &\\
+&\text{subject to}       &c(x) &= 0
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+A(x)^T = [\nabla c_1(x), \nabla c_2(x),..., \nabla c_m(x)]
+\end{equation}
+Goal: KKT necessary conditions
+\begin{equation}
+F(x, \lambda) = \begin{bmatrix}
+\nabla f(x) - A(x)^T \lambda \\
+c(x)
+\end{bmatrix} = 0
+\end{equation}
+Resolve the quadraticalized problems sequentially to find an optimal step and update the trajectory with a roll-out policy (like line search). 
+\color{gray} \quad Partie technique, voir la chapitre 18 de  \cite{NoceWrig06}
 \end{frame}
+
+%\begin{frame}{Sequential Quadratic Programming (SQP) II}
+%\begin{equation}
+%F'(x, \lambda) = 
+%\end{equation}
+%\end{frame}
+\begin{frame}{Bibliography}
+\bibliographystyle{unsrt}
+\bibliography{presentation}{}
+
+\end{frame}
+
+
 
 \end{document}
