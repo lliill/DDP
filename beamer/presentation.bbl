@@ -5,4 +5,9 @@ Jorge Nocedal and Stephen~J. Wright.
 \newblock {\em Numerical Optimization}.
 \newblock Springer, 2006.
 
+\bibitem{crocoddyl}
+Carlos Mastalli, Rohan Budhiraja, Nicolas Mansard, and Justin Carpentier.
+\newblock {\em Contact RObot COntrol by Differential DYnamic programming
+  Library}.
+
 \end{thebibliography}

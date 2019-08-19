@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex presentation"] 1565796448 "presentation.aux" "presentation.bbl" "presentation" 1565796452
+["bibtex presentation"] 1566215659 "presentation.aux" "presentation.bbl" "presentation" 1566215659
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "presentation.aux" 1565796431 6246 09928b677d3e198ee9e47cc7583188a3 ""
+  "presentation.aux" 1566215638 6323 f2569f9580f76696cd361fbcd707925a ""
   "presentation.bcf" 0 -1 0 ""
   "presentation.bib" 1564403842 1513 38710eab1e68ca776b7ddaa36ce28f05 ""
   (generated)
   "presentation.blg"
   "presentation.bbl"
-["pdflatex"] 1565796451 "presentation.tex" "presentation.pdf" "presentation" 1565796452
+["pdflatex"] 1566215657 "presentation.tex" "presentation.pdf" "presentation" 1566215657
   "/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1284331290 1458 43ab4710dc82f3edeabecd0d099626b2 ""
   "/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty" 1335995445 24460 92f559a71aac869021852c227c704b38 ""
@@ -178,16 +178,16 @@
   "images/Justin_Carpentier.jpg" 1565363916 32477 e2b489a57454ec70d217489ac6ebeef6 ""
   "images/Nicolas_Mansard.jpg" 1565364302 40585 9b2fde2a0a7eaa2eb83e1d81df849718 ""
   "images/WILLOW_Research.png" 1565702015 44671 4dfa30da39733d33420877877a52f8b3 ""
-  "presentation.aux" 1565796431 6246 09928b677d3e198ee9e47cc7583188a3 ""
-  "presentation.bbl" 1565796428 175 ad76a05307800a9bc84b9926e67f907e "bibtex presentation"
-  "presentation.nav" 1565796431 3107 26e9d60e26631af316690ffe2ab740e5 ""
-  "presentation.out" 1565796431 356 70211b4e689c75032a269cd12e0fde92 ""
-  "presentation.tex" 1565796430 7834 6a02d93db0db00b90f7d68495cd9a0fe ""
-  "presentation.toc" 1565796431 773 f37f225d904e0edc5ed1a5e3d0e5cc32 ""
+  "presentation.aux" 1566215626 6267 fa9a7785e1283ab715971f33e2fc6af6 ""
+  "presentation.bbl" 1566215635 355 8b6ac75560cf275e7e5547bdbe3b57a0 "bibtex presentation"
+  "presentation.nav" 1566215626 3107 26e9d60e26631af316690ffe2ab740e5 ""
+  "presentation.out" 1566215626 356 70211b4e689c75032a269cd12e0fde92 ""
+  "presentation.tex" 1566215636 7873 a3f6915fb7409cafc9600b7ffe5b2e7c ""
+  "presentation.toc" 1566215626 773 f37f225d904e0edc5ed1a5e3d0e5cc32 ""
   (generated)
-  "presentation.nav"
-  "presentation.out"
-  "presentation.pdf"
-  "presentation.aux"
   "presentation.log"
   "presentation.toc"
+  "presentation.aux"
+  "presentation.pdf"
+  "presentation.nav"
+  "presentation.out"
