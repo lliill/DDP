@@ -1,10 +1,13 @@
 \documentclass{beamer}
+%\hypersetup{bookmarksopen=true,bookmarksopenlevel=4}
+\setcounter{tocdepth}{2}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mathtools}
 \usepackage{hyperref}
-
+\usepackage{multicol}
+\usepackage{tcolorbox}
 \usetheme{metropolis}  
 
 \title{Optimal Control and Optimization in Robotics}
@@ -91,7 +94,9 @@ and \emph{Constraints}
 
 
 \begin{frame}{Outline}
+%\begin{multicols}{2}
 \tableofcontents
+%\end{multicols}
 \end{frame}
 
 \section{Optimal Control Problem}
@@ -152,6 +157,7 @@ Discretization of functions and variables:
 \end{equation}
   \end{frame}
   
+\addtocontents{toc}{\newpage}
 \section{Differential Dynamic Programming}
 \subsection{Dynamic Programming}
 \begin{frame}{Dynamic Programming}
@@ -283,11 +289,111 @@ Resolve the quadraticalized problems sequentially to find an optimal step and up
 \color{gray} \quad Partie technique, voir la chapitre 18 de  \cite{NoceWrig06} and \cite{crocoddyl}
 \end{frame}
 
+
+\section{Augmented Lagrangian method}
+
+\begin{frame}{Penalty method}
+\subsection{Penalty method}
+The \emph{Penalty method} transform a \emph{constrained optimization problem}:
+\begin{equation}
+\begin{aligned}	
+&\underset{x}{\text{minimize}}                  &f(x) &  & \\
+&\text{subject to}     & c_i(x)  &= 0,  & i \in \mathcal{E}
+\end{aligned}
+\end{equation}
+to an \emph{optimization problem without constraint}:
+\begin{equation}
+\label{eq: penalty}
+\begin{aligned}	
+&\underset{x}{\text{minimize}}       &f(x) + \frac{\mu}{2} \sum_{i \in \mathcal{E}} c_i^2(x),&  &\mu >0
+\end{aligned}
+\end{equation}
+$\mu$ is the penalty parameter. We solve sequentially the \ref{eq: penalty} with an increasing sequence\footnote{For example, $\mu_{k+1} = 2 \mu_k$ if some residual tolerance is satisfied.} of $\mu_k$ until the final convergence test \footnote{For example, the residual $\|c(x)\| < 10^{-8}$}is satisfied.
+
+\end{frame}
+
+\subsection{Augmented Lagrangian}
+\begin{frame}{Augmented Lagrangian}
+\emph{Augmented Lagrangian function} is modified version of the \emph{penalty function}:
+\begin{equation}
+\label{eq:LA}
+\mathcal{L}^A (x):= f(x) + \sum_{i \in \mathcal{E}} \lambda_i c_i(x) +\frac{\mu}{2} \sum_{i \in \mathcal{E}} c_i^2(x)
+\end{equation}
+The $\lambda$ is the dual variable called \emph{Lagrangian multiplier} who has the same dimension as the constraints.
+
+While solving sequentially the \ref{eq:LA},
+at each iteration,
+\begin{itemize}
+ \item if the tolerance is satisfied,  update $\lambda^{k+1} := \lambda^{k} + \mu^k c(x_k)$
+ \item else, increase the penalty $\mu$
+ \item Stopping criteria: KKT necessary optimality conditions 
+\end{itemize}
+
+If the algorithm finally finds a numerical optimum, the final $\lambda$ would also be the dual optimum numerically.
+\end{frame}
+
+
+\begin{frame}{Central problem in the internship}
+\begin{equation}
+\label{eq:OCP equality constraints}
+\begin{aligned}
+&\underset{x \in \mathbb{X}^{T+1}, u \in \mathbb{U}^T}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{T-1} L_i(x_i, u_i) + L_T(x_T) & \\
+&\text{subject to}       &x(0)      &= x_0,  & \\ %or \epsilon_{0} 
+&				  &x_{i+1}  &= F(x_i, u_i)  &\forall i \in [0 .. T-1] \\
+&	&\color{red} c_j(x, u) &\color{red} = 0 &\forall j \in [0 .. M-1]
+\end{aligned}
+\end{equation}
+
+Let $c : \mathbb{X}^{T+1} \times \mathbb{U}^T \rightarrow \mathbb{R}^M$ \footnote{Let $\mathbb{X}$ be the state space, for example $\mathbb{R}^n$ and $\mathbb{U}$ be the control space, for example $\mathbb{R}^m$. We can use $\mathcal{X} := \mathbb{X}^{T+1}, \mathcal{U}:= \mathbb{X}^T$ to denote the state and control trajectory space.}be the function for the set of constraints.
+Suppose the constraints are \emph{independent}. 
+\end{frame}
 %\begin{frame}{Sequential Quadratic Programming (SQP) II}
 %\begin{equation}
 %F'(x, \lambda) = 
 %\end{equation}
 %\end{frame}
+\begin{frame}{Augmented Lagrangian on DDP}
+\begin{tcolorbox}
+\begin{equation}
+\mathcal{L}^A_i(x_i, u_i, \lambda, \mu) := L_i(x_i, u_i) 
++ \sum_{j \sim i}\lambda_j c_j(x_i, u_i) + \frac{\mu}{2} \sum_{j \sim i} c_j^2(x_i, u_i) 
+% \quad \forall i \in [0 .. T-1]
+\end{equation}
+\end{tcolorbox}
+\textcolor{gray}{(Cette partie est ma contribution)}
+\begin{equation}
+\label{eq:OCP augmented Lagrangian}
+\begin{aligned}
+&\underset{x \in \mathbb{X}^{T+1}, u \in \mathbb{U}^T}{\text{minimize}}          &J(x, u) &=\sum_{i = 0}^{T-1} \mathcal{L}^A_i(x_i, u_i, \lambda, \mu) + \mathcal{L}^A_T(x_T, \lambda, \mu) & \\
+&\text{subject to}       &x(0)      &= x_0,  & \\ %or \epsilon_{0} 
+&				  &x_{i+1}  &= F(x_i, u_i)  %&\forall i \in [0 .. T-1] 
+\end{aligned}
+\end{equation}
+For all $\lambda \in \mathbb{R}^M, \mu \in \mathbb{R}^{+*}$, the problem  \ref{eq:OCP augmented Lagrangian} can be solved by a DDP (or FDDP) solver (\cite{crocoddyl})
+\end{frame}
+
+\section{Example}
+\begin{frame}{Example: Unicycle}
+\begin{figure}
+\includegraphics[scale=0.3]{images/Unicycle_car}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{{Graph of convergence}}
+\begin{figure}
+\includegraphics[scale=0.28]{images/Unicycle}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Difficulty}
+\begin{itemize}
+\item The theory (of optimization) could be simple
+\item The implementation (and debug) could be complex
+\item[$\square$] No strong theorem for the convergence of algorithm(s) \footnote{There are indeed many theorems for optimization algorithms, but they are almost always in a weak form or not usable in practice. The special properties they state could be interesting in theory, but they will not directly give convergence guarantee.}
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Bibliography}
 \bibliographystyle{unsrt}
 \bibliography{presentation}{}

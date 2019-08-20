@@ -5,8 +5,13 @@
 \beamer@subsectionintoc {1}{1}{Transformation of the problem}{9}{0}{1}
 \beamer@subsubsectionintoc {1}{1}{1}{Adding penalty}{9}{0}{1}
 \beamer@subsubsectionintoc {1}{1}{2}{Discretization}{9}{0}{1}
+\par \vfil \penalty -\@M 
 \beamer@sectionintoc {2}{Differential Dynamic Programming}{10}{0}{2}
 \beamer@subsectionintoc {2}{1}{Dynamic Programming}{11}{0}{2}
 \beamer@subsectionintoc {2}{2}{Linear Quadratic Regulator (LQR)}{12}{0}{2}
 \beamer@subsubsectionintoc {2}{2}{1}{Backward and Forward pass}{13}{0}{2}
 \beamer@subsubsectionintoc {2}{2}{2}{Roll-out}{14}{0}{2}
+\beamer@sectionintoc {3}{Augmented Lagrangian method}{16}{0}{3}
+\beamer@subsectionintoc {3}{1}{Penalty method}{17}{0}{3}
+\beamer@subsectionintoc {3}{2}{Augmented Lagrangian}{18}{0}{3}
+\beamer@sectionintoc {4}{Example}{21}{0}{4}

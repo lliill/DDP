@@ -2,3 +2,7 @@
 \beamer@slide {vl}{11}
 \beamer@slide {QfromV}{13}
 \beamer@slide {VfromQ}{13}
+\beamer@slide {eq: penalty}{17}
+\beamer@slide {eq:LA}{18}
+\beamer@slide {eq:OCP equality constraints}{19}
+\beamer@slide {eq:OCP augmented Lagrangian}{20}

@@ -88,7 +88,7 @@ I cannot show this solution is a valid good solution. Personally I think the \em
 \subsubsection{Review and Prospects}
 The idea of the algorithm is general: combining a pencil with a rubber, and it is very common in numerical optimization algorithms: solving a unconstrained optimization sub-problem sequentially to converge to a solution of a constrained optimization problem. The \emph{Sequential Quadratic Programming} and \emph{Interior point method} share the same idea.
 
-If this solution is a good solution, we can extend the method to solve problems with inequality constraints by using the bound-constrained formulation\cite{NoceWrig06}. During the internship, I implement the algorithm of augmented Lagrangian manually and maybe that is the source of problem. Using existing augmented Lagrangian package like \texttt{LANCELOT} and binding with DDP package may be a good solution. The only problem is the difference of programming languages.
+If this solution is a good solution, we can extend the method to solve problems with inequality constraints by using the bound-constrained formulation in \cite{NoceWrig06}. During the internship, I implement the algorithm of augmented Lagrangian manually and maybe that is the source of problem. Using existing augmented Lagrangian package like \texttt{LANCELOT} and binding with DDP package may be a good solution. The only problem is the binding of different programming languages.
 
 %...bound-constraint slacking
 %\subsubsection{My own contributions}
