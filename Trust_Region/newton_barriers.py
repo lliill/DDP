@@ -24,7 +24,7 @@ def line_search(f,
 
 def newton_method(
         f: "convex function to be minimized",
-        x: "starting point in the feasible domain of f",
+        x: "starting point in the strictly feasible domain of f",
         e: "tolerance, >0",
         gradient_f,
         hessian_f,
